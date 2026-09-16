@@ -2,7 +2,13 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
+// GitHub Pages serves this repo from /CarBookAppRep/ rather than the
+// domain root, so base/start_url/scope all need to shift together for
+// that deployment target. Local dev and any other build stay at "/".
+const base = process.env.DEPLOY_TARGET === 'gh-pages' ? '/CarBookAppRep/' : '/';
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     VitePWA({
@@ -15,8 +21,8 @@ export default defineConfig({
         theme_color: '#0b0b0f',
         background_color: '#0b0b0f',
         display: 'standalone',
-        start_url: '/',
-        scope: '/',
+        start_url: base,
+        scope: base,
         icons: [
           {
             src: 'icons/icon-192.png',
