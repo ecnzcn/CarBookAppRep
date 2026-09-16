@@ -6,5 +6,7 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { to: '/', label: 'Dashboard', icon: '⌂' },
-  { to: '/vehicles', label: 'Vehicles', icon: '🚗' },
+  { to: '/timeline', label: 'Timeline', icon: '📖' },
+  { to: '/costs', label: 'Costs', icon: '€' },
+  { to: '/settings', label: 'Settings', icon: '⚙' },
 ];

@@ -69,6 +69,9 @@ export function VehicleDetailPage() {
           </p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
+          <Link to={`/vehicles/${vehicle.id}/tires`} className="btn btn-secondary">
+            Tires
+          </Link>
           <Link to={`/vehicles/${vehicle.id}/edit`} className="btn btn-secondary">
             Edit
           </Link>

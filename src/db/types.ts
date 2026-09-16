@@ -93,6 +93,7 @@ export interface TireSet {
   purchaseDate?: string;
   purchaseMileage?: number;
   treadDepth?: number;
+  cost?: number;
   notes?: string;
   createdAt: string;
 }
