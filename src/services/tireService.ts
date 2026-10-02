@@ -33,22 +33,22 @@ export class TireValidationError extends Error {}
 
 function assertValidSet(input: TireSetInput) {
   if (!input.vehicleId) {
-    throw new TireValidationError('A vehicle is required.');
+    throw new TireValidationError('Ein Fahrzeug ist erforderlich.');
   }
   if (input.treadDepth !== undefined && input.treadDepth < 0) {
-    throw new TireValidationError('Tread depth cannot be negative.');
+    throw new TireValidationError('Profiltiefe darf nicht negativ sein.');
   }
   if (input.cost !== undefined && input.cost < 0) {
-    throw new TireValidationError('Cost cannot be negative.');
+    throw new TireValidationError('Kosten dürfen nicht negativ sein.');
   }
 }
 
 function assertValidEvent(input: TireEventInput) {
   if (!input.tireSetId) {
-    throw new TireValidationError('A tire set is required.');
+    throw new TireValidationError('Ein Reifensatz ist erforderlich.');
   }
   if (!input.date) {
-    throw new TireValidationError('Date is required.');
+    throw new TireValidationError('Datum ist erforderlich.');
   }
 }
 

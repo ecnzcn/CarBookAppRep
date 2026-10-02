@@ -45,7 +45,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
     try {
       await onSubmit(input);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong.');
+      setError(err instanceof Error ? err.message : 'Etwas ist schiefgelaufen.');
     } finally {
       setSaving(false);
     }
@@ -55,7 +55,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
         <div className="field">
-          <label htmlFor="manufacturer">Manufacturer</label>
+          <label htmlFor="manufacturer">Hersteller</label>
           <input
             id="manufacturer"
             required
@@ -64,7 +64,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           />
         </div>
         <div className="field">
-          <label htmlFor="model">Model</label>
+          <label htmlFor="model">Modell</label>
           <input
             id="model"
             required
@@ -73,7 +73,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           />
         </div>
         <div className="field">
-          <label htmlFor="series">Series / Trim</label>
+          <label htmlFor="series">Baureihe / Ausstattung</label>
           <input
             id="series"
             value={input.series ?? ''}
@@ -81,7 +81,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           />
         </div>
         <div className="field">
-          <label htmlFor="year">Year</label>
+          <label htmlFor="year">Baujahr</label>
           <input
             id="year"
             type="number"
@@ -90,7 +90,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           />
         </div>
         <div className="field">
-          <label htmlFor="engine">Engine</label>
+          <label htmlFor="engine">Motor</label>
           <input
             id="engine"
             value={input.engine ?? ''}
@@ -98,7 +98,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           />
         </div>
         <div className="field">
-          <label htmlFor="fuelType">Fuel type</label>
+          <label htmlFor="fuelType">Kraftstoff</label>
           <select
             id="fuelType"
             value={input.fuelType ?? ''}
@@ -106,7 +106,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
               set('fuelType', (e.target.value || undefined) as VehicleInput['fuelType'])
             }
           >
-            <option value="">Select…</option>
+            <option value="">Auswählen…</option>
             {fuelTypeOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
                 {opt.label}
@@ -115,7 +115,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           </select>
         </div>
         <div className="field">
-          <label htmlFor="transmission">Transmission</label>
+          <label htmlFor="transmission">Getriebe</label>
           <select
             id="transmission"
             value={input.transmission ?? ''}
@@ -126,7 +126,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
               )
             }
           >
-            <option value="">Select…</option>
+            <option value="">Auswählen…</option>
             {transmissionOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
                 {opt.label}
@@ -135,7 +135,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           </select>
         </div>
         <div className="field">
-          <label htmlFor="drivetrain">Drivetrain</label>
+          <label htmlFor="drivetrain">Antrieb</label>
           <select
             id="drivetrain"
             value={input.drivetrain ?? ''}
@@ -143,7 +143,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
               set('drivetrain', (e.target.value || undefined) as VehicleInput['drivetrain'])
             }
           >
-            <option value="">Select…</option>
+            <option value="">Auswählen…</option>
             {drivetrainOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
                 {opt.label}
@@ -152,11 +152,11 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           </select>
         </div>
         <div className="field">
-          <label htmlFor="vin">VIN</label>
+          <label htmlFor="vin">FIN</label>
           <input id="vin" value={input.vin ?? ''} onChange={(e) => set('vin', e.target.value)} />
         </div>
         <div className="field">
-          <label htmlFor="licensePlate">License plate</label>
+          <label htmlFor="licensePlate">Kennzeichen</label>
           <input
             id="licensePlate"
             value={input.licensePlate ?? ''}
@@ -164,7 +164,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           />
         </div>
         <div className="field">
-          <label htmlFor="currentMileage">Current mileage</label>
+          <label htmlFor="currentMileage">Aktueller Kilometerstand</label>
           <input
             id="currentMileage"
             type="number"
@@ -175,7 +175,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           />
         </div>
         <div className="field">
-          <label htmlFor="purchaseDate">Purchase date</label>
+          <label htmlFor="purchaseDate">Kaufdatum</label>
           <input
             id="purchaseDate"
             type="date"
@@ -184,7 +184,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
           />
         </div>
         <div className="field">
-          <label htmlFor="purchasePrice">Purchase price</label>
+          <label htmlFor="purchasePrice">Kaufpreis</label>
           <input
             id="purchasePrice"
             type="number"
@@ -198,7 +198,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
       </div>
 
       <div className="field">
-        <label htmlFor="notes">Notes</label>
+        <label htmlFor="notes">Notizen</label>
         <textarea
           id="notes"
           rows={3}
@@ -211,10 +211,10 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
 
       <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
         <button type="button" className="btn btn-secondary" onClick={onCancel}>
-          Cancel
+          Abbrechen
         </button>
         <button type="submit" className="btn btn-primary" disabled={saving}>
-          {saving ? 'Saving…' : submitLabel}
+          {saving ? 'Wird gespeichert…' : submitLabel}
         </button>
       </div>
     </form>

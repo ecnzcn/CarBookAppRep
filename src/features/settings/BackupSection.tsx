@@ -10,11 +10,24 @@ import {
   type ImportResult,
 } from '../../services/backupService';
 
+const countLabels: Record<keyof BackupCounts, string> = {
+  vehicles: 'Fahrzeuge',
+  maintenance: 'Wartungseinträge',
+  issues: 'Probleme',
+  fuelEntries: 'Tankungen',
+  tireSets: 'Reifensätze',
+  tireEvents: 'Reifenereignisse',
+  reminders: 'Erinnerungen',
+  documents: 'Dokumente',
+};
+
 function countLines(counts: BackupCounts): string {
-  return Object.entries(counts)
-    .filter(([, value]) => value > 0)
-    .map(([key, value]) => `${value} ${key}`)
-    .join(', ') || 'nothing';
+  return (
+    Object.entries(counts)
+      .filter(([, value]) => value > 0)
+      .map(([key, value]) => `${value} ${countLabels[key as keyof BackupCounts]}`)
+      .join(', ') || 'nichts'
+  );
 }
 
 export function BackupSection() {
@@ -86,18 +99,18 @@ export function BackupSection() {
       <div>
         <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Export</h3>
         <p style={{ fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 10 }}>
-          Download everything — every vehicle, record, and document — as one zip file.
+          Lade alles herunter — jedes Fahrzeug, jeden Eintrag und jedes Dokument — als eine ZIP-Datei.
         </p>
         <button className="btn btn-primary" onClick={handleExport} disabled={exporting}>
-          {exporting ? 'Preparing…' : 'Export backup'}
+          {exporting ? 'Wird vorbereitet…' : 'Backup exportieren'}
         </button>
       </div>
 
       <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 16 }}>
         <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 6 }}>Import</h3>
         <p style={{ fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 10 }}>
-          Restore from a backup. Existing data is never overwritten — records that already exist
-          are skipped, not replaced.
+          Aus einem Backup wiederherstellen. Bestehende Daten werden nie überschrieben — bereits
+          vorhandene Einträge werden übersprungen, nicht ersetzt.
         </p>
         <input
           ref={fileInputRef}
@@ -109,7 +122,7 @@ export function BackupSection() {
         {preview && !preview.valid && (
           <div style={{ marginTop: 10 }}>
             <p style={{ color: 'var(--color-danger)', fontSize: 13, fontWeight: 600 }}>
-              This file couldn't be imported:
+              Diese Datei konnte nicht importiert werden:
             </p>
             <ul style={{ margin: '4px 0 0', paddingLeft: 18, fontSize: 13, color: 'var(--color-danger)' }}>
               {preview.errors.map((err) => (
@@ -122,18 +135,18 @@ export function BackupSection() {
         {preview?.valid && (
           <div className="card" style={{ marginTop: 10 }}>
             <p style={{ fontSize: 14, marginBottom: 10 }}>
-              This backup contains: <strong>{countLines(preview.counts)}</strong>.
+              Dieses Backup enthält: <strong>{countLines(preview.counts)}</strong>.
             </p>
             <p style={{ fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 12 }}>
-              Review the summary above, then confirm to import. Anything that already exists
-              locally will be skipped, not overwritten.
+              Prüfe die Zusammenfassung oben und bestätige dann den Import. Bereits lokal
+              vorhandene Daten werden übersprungen, nicht überschrieben.
             </p>
             <div style={{ display: 'flex', gap: 10 }}>
               <button className="btn btn-secondary" onClick={handleCancelImport}>
-                Cancel
+                Abbrechen
               </button>
               <button className="btn btn-primary" onClick={handleConfirmImport} disabled={importing}>
-                {importing ? 'Importing…' : 'Confirm import'}
+                {importing ? 'Wird importiert…' : 'Import bestätigen'}
               </button>
             </div>
           </div>
@@ -142,10 +155,10 @@ export function BackupSection() {
         {importResult && (
           <div className="card" style={{ marginTop: 10 }}>
             <p style={{ fontSize: 14 }}>
-              Imported <strong>{countLines(importResult.added)}</strong>.
+              Importiert: <strong>{countLines(importResult.added)}</strong>.
             </p>
             <p style={{ fontSize: 13, color: 'var(--color-text-muted)', marginTop: 4 }}>
-              Skipped (already present): {countLines(importResult.skippedExisting)}.
+              Übersprungen (bereits vorhanden): {countLines(importResult.skippedExisting)}.
             </p>
           </div>
         )}

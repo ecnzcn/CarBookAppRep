@@ -1,10 +1,10 @@
 import type { Maintenance } from '../../db/types';
 
 export const maintenanceTypeOptions: { value: Maintenance['type']; label: string }[] = [
-  { value: 'maintenance', label: 'Maintenance' },
-  { value: 'repair', label: 'Repair' },
+  { value: 'maintenance', label: 'Wartung' },
+  { value: 'repair', label: 'Reparatur' },
   { value: 'service', label: 'Service' },
-  { value: 'inspection', label: 'Inspection' },
+  { value: 'inspection', label: 'Inspektion' },
 ];
 
 export function maintenanceTypeLabel(type: Maintenance['type']): string {

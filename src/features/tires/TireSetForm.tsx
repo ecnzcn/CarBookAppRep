@@ -42,7 +42,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
     try {
       await onSubmit(input);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong.');
+      setError(err instanceof Error ? err.message : 'Etwas ist schiefgelaufen.');
     } finally {
       setSaving(false);
     }
@@ -52,7 +52,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
         <div className="field">
-          <label htmlFor="season">Season</label>
+          <label htmlFor="season">Saison</label>
           <select id="season" value={input.season} onChange={(e) => set('season', e.target.value as TireSet['season'])}>
             {tireSeasonOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -62,15 +62,15 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
           </select>
         </div>
         <div className="field">
-          <label htmlFor="manufacturer">Manufacturer</label>
+          <label htmlFor="manufacturer">Hersteller</label>
           <input id="manufacturer" value={input.manufacturer ?? ''} onChange={(e) => set('manufacturer', e.target.value)} />
         </div>
         <div className="field">
-          <label htmlFor="model">Model</label>
+          <label htmlFor="model">Modell</label>
           <input id="model" value={input.model ?? ''} onChange={(e) => set('model', e.target.value)} />
         </div>
         <div className="field">
-          <label htmlFor="size">Size</label>
+          <label htmlFor="size">Größe</label>
           <input id="size" placeholder="205/55 R16" value={input.size ?? ''} onChange={(e) => set('size', e.target.value)} />
         </div>
         <div className="field">
@@ -78,7 +78,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
           <input id="dot" value={input.dot ?? ''} onChange={(e) => set('dot', e.target.value)} />
         </div>
         <div className="field">
-          <label htmlFor="treadDepth">Tread depth (mm)</label>
+          <label htmlFor="treadDepth">Profiltiefe (mm)</label>
           <input
             id="treadDepth"
             type="number"
@@ -89,7 +89,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
           />
         </div>
         <div className="field">
-          <label htmlFor="purchaseDate">Purchase date</label>
+          <label htmlFor="purchaseDate">Kaufdatum</label>
           <input
             id="purchaseDate"
             type="date"
@@ -98,7 +98,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
           />
         </div>
         <div className="field">
-          <label htmlFor="purchaseMileage">Purchase mileage</label>
+          <label htmlFor="purchaseMileage">Kilometerstand beim Kauf</label>
           <input
             id="purchaseMileage"
             type="number"
@@ -108,7 +108,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
           />
         </div>
         <div className="field">
-          <label htmlFor="cost">Cost</label>
+          <label htmlFor="cost">Kosten</label>
           <input
             id="cost"
             type="number"
@@ -121,7 +121,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
       </div>
 
       <div className="field">
-        <label htmlFor="notes">Notes</label>
+        <label htmlFor="notes">Notizen</label>
         <textarea id="notes" rows={2} value={input.notes ?? ''} onChange={(e) => set('notes', e.target.value)} />
       </div>
 
@@ -129,10 +129,10 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
 
       <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
         <button type="button" className="btn btn-secondary" onClick={onCancel}>
-          Cancel
+          Abbrechen
         </button>
         <button type="submit" className="btn btn-primary" disabled={saving}>
-          {saving ? 'Saving…' : 'Save tire set'}
+          {saving ? 'Wird gespeichert…' : 'Reifensatz speichern'}
         </button>
       </div>
     </form>

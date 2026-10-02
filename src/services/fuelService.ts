@@ -20,22 +20,22 @@ export class FuelValidationError extends Error {}
 
 function assertValid(input: FuelInput) {
   if (!input.vehicleId) {
-    throw new FuelValidationError('A vehicle is required.');
+    throw new FuelValidationError('Ein Fahrzeug ist erforderlich.');
   }
   if (!input.date) {
-    throw new FuelValidationError('Date is required.');
+    throw new FuelValidationError('Datum ist erforderlich.');
   }
   if (!Number.isFinite(input.mileage) || input.mileage < 0) {
-    throw new FuelValidationError('Mileage must be a non-negative number.');
+    throw new FuelValidationError('Kilometerstand muss eine nicht-negative Zahl sein.');
   }
   if (!Number.isFinite(input.liters) || input.liters <= 0) {
-    throw new FuelValidationError('Liters must be greater than zero.');
+    throw new FuelValidationError('Liter müssen größer als null sein.');
   }
   if (!Number.isFinite(input.pricePerLiter) || input.pricePerLiter <= 0) {
-    throw new FuelValidationError('Price per liter must be greater than zero.');
+    throw new FuelValidationError('Preis pro Liter muss größer als null sein.');
   }
   if (!Number.isFinite(input.totalCost) || input.totalCost < 0) {
-    throw new FuelValidationError('Total cost cannot be negative.');
+    throw new FuelValidationError('Gesamtpreis darf nicht negativ sein.');
   }
 }
 

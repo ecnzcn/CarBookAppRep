@@ -49,7 +49,7 @@ export function DocumentAttachments({ vehicleId, maintenanceId, issueId }: Docum
         await documentService.upload({ vehicleId, maintenanceId, issueId, file });
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Upload failed.');
+      setError(err instanceof Error ? err.message : 'Upload fehlgeschlagen.');
     } finally {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -89,7 +89,7 @@ export function DocumentAttachments({ vehicleId, maintenanceId, issueId }: Docum
                   style={{ padding: '4px 10px', color: 'var(--color-danger)' }}
                   onClick={() => handleRemove(doc.id)}
                 >
-                  Remove
+                  Entfernen
                 </button>
               </li>
             );

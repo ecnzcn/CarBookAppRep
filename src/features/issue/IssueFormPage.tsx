@@ -45,7 +45,7 @@ export function IssueFormPage() {
   if (!vehicleId) {
     return (
       <div className="card">
-        <p>No vehicle selected. Add a vehicle first.</p>
+        <p>Kein Fahrzeug ausgewählt. Füge zuerst ein Fahrzeug hinzu.</p>
       </div>
     );
   }
@@ -71,7 +71,7 @@ export function IssueFormPage() {
       setError(
         err instanceof IssueValidationError || err instanceof Error
           ? err.message
-          : 'Something went wrong.',
+          : 'Etwas ist schiefgelaufen.',
       );
     } finally {
       setSaving(false);
@@ -80,29 +80,29 @@ export function IssueFormPage() {
 
   async function handleDelete() {
     if (!id) return;
-    if (!window.confirm('Delete this issue? This cannot be undone.')) return;
+    if (!window.confirm('Dieses Problem löschen? Dies kann nicht rückgängig gemacht werden.')) return;
     await issueService.remove(id);
     navigate(-1);
   }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      <h1 style={{ fontSize: 22, fontWeight: 700 }}>{isEditing ? 'Edit issue' : 'Add issue'}</h1>
+      <h1 style={{ fontSize: 22, fontWeight: 700 }}>{isEditing ? 'Problem bearbeiten' : 'Problem hinzufügen'}</h1>
 
       <form onSubmit={handleSubmit} className="card" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div className="field">
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">Titel</label>
           <input
             id="title"
             required
-            placeholder='e.g. "Klong beim Einlegen von D"'
+            placeholder='z. B. "Klong beim Einlegen von D"'
             value={current.title}
             onChange={(e) => set('title', e.target.value)}
           />
         </div>
 
         <div className="field">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Beschreibung</label>
           <textarea
             id="description"
             rows={3}
@@ -113,11 +113,11 @@ export function IssueFormPage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className="field">
-            <label htmlFor="date">Date</label>
+            <label htmlFor="date">Datum</label>
             <input id="date" type="date" required value={current.date} onChange={(e) => set('date', e.target.value)} />
           </div>
           <div className="field">
-            <label htmlFor="mileage">Mileage</label>
+            <label htmlFor="mileage">Kilometerstand</label>
             <input
               id="mileage"
               type="number"
@@ -137,7 +137,7 @@ export function IssueFormPage() {
             </select>
           </div>
           <div className="field">
-            <label htmlFor="severity">Severity</label>
+            <label htmlFor="severity">Schweregrad</label>
             <select
               id="severity"
               value={current.severity}
@@ -153,7 +153,7 @@ export function IssueFormPage() {
         </div>
 
         <div className="field">
-          <label htmlFor="notes">Notes</label>
+          <label htmlFor="notes">Notizen</label>
           <textarea id="notes" rows={2} value={current.notes ?? ''} onChange={(e) => set('notes', e.target.value)} />
         </div>
 
@@ -163,16 +163,16 @@ export function IssueFormPage() {
           <div>
             {isEditing && (
               <button type="button" className="btn btn-secondary" style={{ color: 'var(--color-danger)' }} onClick={handleDelete}>
-                Delete
+                Löschen
               </button>
             )}
           </div>
           <div style={{ display: 'flex', gap: 12 }}>
             <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>
-              Cancel
+              Abbrechen
             </button>
             <button type="submit" className="btn btn-primary" disabled={saving}>
-              {saving ? 'Saving…' : isEditing ? 'Save changes' : 'Add issue'}
+              {saving ? 'Wird gespeichert…' : isEditing ? 'Änderungen speichern' : 'Problem hinzufügen'}
             </button>
           </div>
         </div>
@@ -180,7 +180,7 @@ export function IssueFormPage() {
 
       {isEditing && id && (
         <div className="card">
-          <h2 style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 10 }}>Documents</h2>
+          <h2 style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 10 }}>Dokumente</h2>
           <DocumentAttachments vehicleId={vehicleId} issueId={id} />
         </div>
       )}

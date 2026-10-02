@@ -52,7 +52,7 @@ export function MaintenanceFormPage() {
   if (!vehicleId) {
     return (
       <div className="card">
-        <p>No vehicle selected. Add a vehicle first.</p>
+        <p>Kein Fahrzeug ausgewählt. Füge zuerst ein Fahrzeug hinzu.</p>
       </div>
     );
   }
@@ -78,7 +78,7 @@ export function MaintenanceFormPage() {
       setError(
         err instanceof MaintenanceValidationError || err instanceof Error
           ? err.message
-          : 'Something went wrong.',
+          : 'Etwas ist schiefgelaufen.',
       );
     } finally {
       setSaving(false);
@@ -87,7 +87,7 @@ export function MaintenanceFormPage() {
 
   async function handleDelete() {
     if (!id) return;
-    if (!window.confirm('Delete this entry? This cannot be undone.')) return;
+    if (!window.confirm('Diesen Eintrag löschen? Dies kann nicht rückgängig gemacht werden.')) return;
     await maintenanceService.remove(id);
     navigate(-1);
   }
@@ -95,18 +95,18 @@ export function MaintenanceFormPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <h1 style={{ fontSize: 22, fontWeight: 700 }}>
-        {isEditing ? 'Edit maintenance entry' : 'Add maintenance entry'}
+        {isEditing ? 'Wartungseintrag bearbeiten' : 'Wartungseintrag hinzufügen'}
       </h1>
 
       <form onSubmit={handleSubmit} className="card" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div className="field">
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">Titel</label>
           <input id="title" required value={current.title} onChange={(e) => set('title', e.target.value)} />
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className="field">
-            <label htmlFor="type">Type</label>
+            <label htmlFor="type">Typ</label>
             <select id="type" value={current.type} onChange={(e) => set('type', e.target.value as Maintenance['type'])}>
               {maintenanceTypeOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -116,11 +116,11 @@ export function MaintenanceFormPage() {
             </select>
           </div>
           <div className="field">
-            <label htmlFor="date">Date</label>
+            <label htmlFor="date">Datum</label>
             <input id="date" type="date" required value={current.date} onChange={(e) => set('date', e.target.value)} />
           </div>
           <div className="field">
-            <label htmlFor="mileage">Mileage</label>
+            <label htmlFor="mileage">Kilometerstand</label>
             <input
               id="mileage"
               type="number"
@@ -131,7 +131,7 @@ export function MaintenanceFormPage() {
             />
           </div>
           <div className="field">
-            <label htmlFor="cost">Cost</label>
+            <label htmlFor="cost">Kosten</label>
             <input
               id="cost"
               type="number"
@@ -142,13 +142,13 @@ export function MaintenanceFormPage() {
             />
           </div>
           <div className="field">
-            <label htmlFor="workshop">Workshop</label>
+            <label htmlFor="workshop">Werkstatt</label>
             <input id="workshop" value={current.workshop ?? ''} onChange={(e) => set('workshop', e.target.value)} />
           </div>
         </div>
 
         <div className="field">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Beschreibung</label>
           <textarea
             id="description"
             rows={2}
@@ -159,7 +159,7 @@ export function MaintenanceFormPage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className="field">
-            <label htmlFor="nextDate">Next due date</label>
+            <label htmlFor="nextDate">Nächstes Fälligkeitsdatum</label>
             <input
               id="nextDate"
               type="date"
@@ -168,7 +168,7 @@ export function MaintenanceFormPage() {
             />
           </div>
           <div className="field">
-            <label htmlFor="nextMileage">Next due mileage</label>
+            <label htmlFor="nextMileage">Nächster Fälligkeits-Kilometerstand</label>
             <input
               id="nextMileage"
               type="number"
@@ -180,7 +180,7 @@ export function MaintenanceFormPage() {
         </div>
 
         <div className="field">
-          <label htmlFor="notes">Notes</label>
+          <label htmlFor="notes">Notizen</label>
           <textarea id="notes" rows={2} value={current.notes ?? ''} onChange={(e) => set('notes', e.target.value)} />
         </div>
 
@@ -190,16 +190,16 @@ export function MaintenanceFormPage() {
           <div>
             {isEditing && (
               <button type="button" className="btn btn-secondary" style={{ color: 'var(--color-danger)' }} onClick={handleDelete}>
-                Delete
+                Löschen
               </button>
             )}
           </div>
           <div style={{ display: 'flex', gap: 12 }}>
             <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>
-              Cancel
+              Abbrechen
             </button>
             <button type="submit" className="btn btn-primary" disabled={saving}>
-              {saving ? 'Saving…' : isEditing ? 'Save changes' : 'Add entry'}
+              {saving ? 'Wird gespeichert…' : isEditing ? 'Änderungen speichern' : 'Eintrag hinzufügen'}
             </button>
           </div>
         </div>
@@ -207,7 +207,7 @@ export function MaintenanceFormPage() {
 
       {isEditing && id && (
         <div className="card">
-          <h2 style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 10 }}>Documents</h2>
+          <h2 style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 10 }}>Dokumente</h2>
           <DocumentAttachments vehicleId={vehicleId} maintenanceId={id} />
         </div>
       )}

@@ -16,13 +16,13 @@ const MAX_DOCUMENT_BYTES = 15 * 1024 * 1024; // 15 MB — generous for phone pho
 
 function assertValid(input: DocumentUploadInput) {
   if (!input.vehicleId) {
-    throw new DocumentValidationError('A vehicle is required.');
+    throw new DocumentValidationError('Ein Fahrzeug ist erforderlich.');
   }
   if (input.file.size === 0) {
-    throw new DocumentValidationError('The selected file is empty.');
+    throw new DocumentValidationError('Die ausgewählte Datei ist leer.');
   }
   if (input.file.size > MAX_DOCUMENT_BYTES) {
-    throw new DocumentValidationError('The selected file is larger than 15 MB.');
+    throw new DocumentValidationError('Die ausgewählte Datei ist größer als 15 MB.');
   }
 }
 

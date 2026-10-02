@@ -23,22 +23,22 @@ export class MaintenanceValidationError extends Error {}
 
 function assertValid(input: MaintenanceInput) {
   if (!input.vehicleId) {
-    throw new MaintenanceValidationError('A vehicle is required.');
+    throw new MaintenanceValidationError('Ein Fahrzeug ist erforderlich.');
   }
   if (!input.title.trim()) {
-    throw new MaintenanceValidationError('Title is required.');
+    throw new MaintenanceValidationError('Titel ist erforderlich.');
   }
   if (!input.date) {
-    throw new MaintenanceValidationError('Date is required.');
+    throw new MaintenanceValidationError('Datum ist erforderlich.');
   }
   if (!Number.isFinite(input.mileage) || input.mileage < 0) {
-    throw new MaintenanceValidationError('Mileage must be a non-negative number.');
+    throw new MaintenanceValidationError('Kilometerstand muss eine nicht-negative Zahl sein.');
   }
   if (input.cost !== undefined && input.cost < 0) {
-    throw new MaintenanceValidationError('Cost cannot be negative.');
+    throw new MaintenanceValidationError('Kosten dürfen nicht negativ sein.');
   }
   if (input.nextMileage !== undefined && input.nextMileage < input.mileage) {
-    throw new MaintenanceValidationError('Next due mileage cannot be before the entry mileage.');
+    throw new MaintenanceValidationError('Der nächste Fälligkeits-Kilometerstand darf nicht vor dem Eintrags-Kilometerstand liegen.');
   }
 }
 

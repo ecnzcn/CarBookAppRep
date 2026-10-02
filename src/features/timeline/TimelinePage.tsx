@@ -11,9 +11,27 @@ import { documentRepository } from '../../repositories/documentRepository';
 import { buildTimeline, type TimelineEntryType } from '../../services/timelineService';
 import { filterTimelineEntries, matchesText } from '../../services/timelineFilter';
 import { timelineTypeLabel, timelineTypeOptions, timelineTypeTone } from './timelineDisplay';
+import { issueStatusLabel } from '../issue/issueOptions';
+import type { Issue } from '../../db/types';
 import { Badge } from '../../ui/components/Badge';
 import { EmptyState } from '../../ui/components/EmptyState';
+import { formatDateDe } from '../../ui/formatDate';
 import styles from './Timeline.module.css';
+
+const germanMonths = [
+  'Januar',
+  'Februar',
+  'März',
+  'April',
+  'Mai',
+  'Juni',
+  'Juli',
+  'August',
+  'September',
+  'Oktober',
+  'November',
+  'Dezember',
+];
 
 interface AdvancedFilters {
   from: string;
@@ -34,8 +52,10 @@ const emptyAdvancedFilters: AdvancedFilters = {
 };
 
 function monthLabel(dateIso: string): string {
-  const date = new Date(dateIso);
-  return date.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+  const match = /^(\d{4})-(\d{2})/.exec(dateIso);
+  if (!match) return dateIso;
+  const [, year, month] = match;
+  return `${germanMonths[Number(month) - 1]} ${year}`;
 }
 
 export function TimelinePage() {
@@ -115,7 +135,7 @@ export function TimelinePage() {
   if (!vehicleId) {
     return (
       <div className="card">
-        <EmptyState>Add a vehicle first to see its history.</EmptyState>
+        <EmptyState>Füge zuerst ein Fahrzeug hinzu, um seine Historie zu sehen.</EmptyState>
       </div>
     );
   }
@@ -131,19 +151,19 @@ export function TimelinePage() {
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         <Link to={`/maintenance/new?vehicleId=${vehicleId}`} className="btn btn-secondary">
-          + Maintenance
+          + Wartung
         </Link>
         <Link to={`/issues/new?vehicleId=${vehicleId}`} className="btn btn-secondary">
-          + Issue
+          + Problem
         </Link>
         <Link to={`/fuel/new?vehicleId=${vehicleId}`} className="btn btn-secondary">
-          + Fuel
+          + Tankung
         </Link>
       </div>
 
       <div className="field">
         <input
-          placeholder="Search maintenance, issues, fuel, tires, documents…"
+          placeholder="Wartung, Probleme, Tankungen, Reifen, Dokumente durchsuchen…"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
@@ -167,39 +187,39 @@ export function TimelinePage() {
           onClick={() => setShowAdvanced((v) => !v)}
           type="button"
         >
-          Filters
+          Filter
         </button>
       </div>
 
       {showAdvanced && (
         <div className="card" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 12 }}>
           <div className="field">
-            <label>From</label>
+            <label>Von</label>
             <input type="date" value={advanced.from} onChange={(e) => setAdvanced((p) => ({ ...p, from: e.target.value }))} />
           </div>
           <div className="field">
-            <label>To</label>
+            <label>Bis</label>
             <input type="date" value={advanced.to} onChange={(e) => setAdvanced((p) => ({ ...p, to: e.target.value }))} />
           </div>
           <div className="field">
-            <label>Min cost</label>
+            <label>Kosten min.</label>
             <input type="number" min={0} value={advanced.minCost} onChange={(e) => setAdvanced((p) => ({ ...p, minCost: e.target.value }))} />
           </div>
           <div className="field">
-            <label>Max cost</label>
+            <label>Kosten max.</label>
             <input type="number" min={0} value={advanced.maxCost} onChange={(e) => setAdvanced((p) => ({ ...p, maxCost: e.target.value }))} />
           </div>
           <div className="field">
-            <label>Min mileage</label>
+            <label>Kilometerstand min.</label>
             <input type="number" min={0} value={advanced.minMileage} onChange={(e) => setAdvanced((p) => ({ ...p, minMileage: e.target.value }))} />
           </div>
           <div className="field">
-            <label>Max mileage</label>
+            <label>Kilometerstand max.</label>
             <input type="number" min={0} value={advanced.maxMileage} onChange={(e) => setAdvanced((p) => ({ ...p, maxMileage: e.target.value }))} />
           </div>
           <div style={{ display: 'flex', alignItems: 'flex-end' }}>
             <button type="button" className="btn btn-secondary" onClick={() => setAdvanced(emptyAdvancedFilters)}>
-              Clear filters
+              Filter zurücksetzen
             </button>
           </div>
         </div>
@@ -207,7 +227,7 @@ export function TimelinePage() {
 
       {filtered === undefined ? null : filtered.length === 0 ? (
         <div className="card">
-          <EmptyState>Nothing here yet. Add your first entry above.</EmptyState>
+          <EmptyState>Noch nichts hier. Füge oben deinen ersten Eintrag hinzu.</EmptyState>
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
@@ -222,13 +242,20 @@ export function TimelinePage() {
                         <div className={styles.entryTitle}>{entry.title}</div>
                         <div className={styles.entryMeta}>
                           <Badge tone={timelineTypeTone(entry.type)}>{timelineTypeLabel(entry.type)}</Badge>
-                          <span>{entry.date}</span>
-                          {entry.mileage !== undefined && <span>· {entry.mileage.toLocaleString()} km</span>}
-                          {entry.subtitle && <span>· {entry.subtitle}</span>}
+                          <span>{formatDateDe(entry.date)}</span>
+                          {entry.mileage !== undefined && <span>· {entry.mileage.toLocaleString('de-DE')} km</span>}
+                          {entry.subtitle && (
+                            <span>
+                              ·{' '}
+                              {entry.type === 'issue'
+                                ? issueStatusLabel(entry.subtitle as Issue['status'])
+                                : entry.subtitle}
+                            </span>
+                          )}
                         </div>
                       </div>
                       {entry.cost !== undefined && (
-                        <div className={styles.entryCost}>{entry.cost.toLocaleString(undefined, { style: 'currency', currency: 'EUR' })}</div>
+                        <div className={styles.entryCost}>{entry.cost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</div>
                       )}
                     </div>
                   </div>

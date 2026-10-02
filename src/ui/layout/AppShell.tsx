@@ -6,7 +6,7 @@ import { navItems } from './navItems';
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className={styles.shell}>
-      <nav className={styles.sidebar} aria-label="Primary">
+      <nav className={styles.sidebar} aria-label="Hauptnavigation">
         <div className={styles.sidebarBrand}>CarBook</div>
         {navItems.map((item) => (
           <NavLink
@@ -27,7 +27,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <main className={styles.content}>{children}</main>
 
-      <nav className={styles.bottomNav} aria-label="Primary">
+      <nav className={styles.bottomNav} aria-label="Hauptnavigation">
         {navItems.map((item) => (
           <NavLink
             key={item.to}

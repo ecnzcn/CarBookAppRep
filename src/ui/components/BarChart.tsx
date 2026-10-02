@@ -4,7 +4,7 @@ export interface BarChartDatum {
 }
 
 function formatEuro(value: number): string {
-  return value.toLocaleString(undefined, { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+  return value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
 }
 
 export function BarChart({ data }: { data: BarChartDatum[] }) {

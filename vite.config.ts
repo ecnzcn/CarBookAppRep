@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -7,8 +9,15 @@ import { VitePWA } from 'vite-plugin-pwa';
 // that deployment target. Local dev and any other build stay at "/".
 const base = process.env.DEPLOY_TARGET === 'gh-pages' ? '/CarBookAppRep/' : '/';
 
+const pkg = JSON.parse(
+  readFileSync(fileURLToPath(new URL('./package.json', import.meta.url)), 'utf-8'),
+) as { version: string };
+
 export default defineConfig({
   base,
+  define: {
+    __APP_VERSION__: JSON.stringify(pkg.version),
+  },
   plugins: [
     react(),
     VitePWA({
@@ -17,7 +26,8 @@ export default defineConfig({
       manifest: {
         name: 'CarBook',
         short_name: 'CarBook',
-        description: 'Your private, offline-first vehicle logbook and history.',
+        description: 'Dein privates, offline-first Fahrzeug-Fahrtenbuch.',
+        lang: 'de',
         theme_color: '#0b0b0f',
         background_color: '#0b0b0f',
         display: 'standalone',

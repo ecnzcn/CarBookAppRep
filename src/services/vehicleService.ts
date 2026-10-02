@@ -24,13 +24,13 @@ export class VehicleValidationError extends Error {}
 
 function assertValid(input: VehicleInput) {
   if (!input.manufacturer.trim()) {
-    throw new VehicleValidationError('Manufacturer is required.');
+    throw new VehicleValidationError('Hersteller ist erforderlich.');
   }
   if (!input.model.trim()) {
-    throw new VehicleValidationError('Model is required.');
+    throw new VehicleValidationError('Modell ist erforderlich.');
   }
   if (!Number.isFinite(input.currentMileage) || input.currentMileage < 0) {
-    throw new VehicleValidationError('Current mileage must be a non-negative number.');
+    throw new VehicleValidationError('Aktueller Kilometerstand muss eine nicht-negative Zahl sein.');
   }
 }
 

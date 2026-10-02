@@ -16,7 +16,7 @@ import { BarChart } from '../../ui/components/BarChart';
 import { EmptyState } from '../../ui/components/EmptyState';
 
 function formatEuro(value: number): string {
-  return value.toLocaleString(undefined, { style: 'currency', currency: 'EUR' });
+  return value.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
 }
 
 export function CostsPage() {
@@ -65,7 +65,7 @@ export function CostsPage() {
   if (!vehicleId) {
     return (
       <div className="card">
-        <EmptyState>Add a vehicle first to see its costs.</EmptyState>
+        <EmptyState>Füge zuerst ein Fahrzeug hinzu, um seine Kosten zu sehen.</EmptyState>
       </div>
     );
   }
@@ -77,18 +77,18 @@ export function CostsPage() {
   const perKm = costPerKm(breakdown.total, kmDriven);
 
   const chartData = [
-    { label: 'Maintenance', value: breakdown.maintenance },
-    { label: 'Repairs', value: breakdown.repair },
+    { label: 'Wartung', value: breakdown.maintenance },
+    { label: 'Reparaturen', value: breakdown.repair },
     { label: 'Service', value: breakdown.service },
-    { label: 'Inspection', value: breakdown.inspection },
-    { label: 'Fuel', value: breakdown.fuel },
-    { label: 'Tires', value: breakdown.tires },
+    { label: 'Inspektion', value: breakdown.inspection },
+    { label: 'Kraftstoff', value: breakdown.fuel },
+    { label: 'Reifen', value: breakdown.tires },
   ].filter((d) => d.value > 0);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1 style={{ fontSize: 22, fontWeight: 700 }}>Costs</h1>
+        <h1 style={{ fontSize: 22, fontWeight: 700 }}>Kosten</h1>
         <select
           value={year}
           onChange={(e) => setYear(Number(e.target.value))}
@@ -110,26 +110,26 @@ export function CostsPage() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 16 }}>
         <div className="card">
-          <h3 style={{ fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 8 }}>Total {year}</h3>
+          <h3 style={{ fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 8 }}>Gesamt {year}</h3>
           <p style={{ fontSize: 26, fontWeight: 700 }}>{formatEuro(breakdown.total)}</p>
         </div>
         <div className="card">
-          <h3 style={{ fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 8 }}>Cost / km</h3>
+          <h3 style={{ fontSize: 13, color: 'var(--color-text-muted)', marginBottom: 8 }}>Kosten / km</h3>
           <p style={{ fontSize: 26, fontWeight: 700 }}>
-            {perKm !== undefined ? `${perKm.toLocaleString(undefined, { style: 'currency', currency: 'EUR', maximumFractionDigits: 3 })}` : '—'}
+            {perKm !== undefined ? `${perKm.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 3 })}` : '—'}
           </p>
           {perKm === undefined && (
             <p style={{ fontSize: 12, color: 'var(--color-text-muted)', marginTop: 4 }}>
-              Not enough mileage data for {year} yet.
+              Noch nicht genügend Kilometerstand-Daten für {year}.
             </p>
           )}
         </div>
       </div>
 
       <div className="card">
-        <h3 style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 14 }}>Breakdown</h3>
+        <h3 style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 14 }}>Aufschlüsselung</h3>
         {chartData.length === 0 ? (
-          <EmptyState>No costs recorded for {year} yet.</EmptyState>
+          <EmptyState>Noch keine Kosten für {year} erfasst.</EmptyState>
         ) : (
           <BarChart data={chartData} />
         )}

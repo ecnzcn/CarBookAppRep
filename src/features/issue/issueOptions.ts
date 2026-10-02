@@ -2,17 +2,17 @@ import type { Issue } from '../../db/types';
 import type { BadgeTone } from '../../ui/components/Badge';
 
 export const issueStatusOptions: { value: Issue['status']; label: string }[] = [
-  { value: 'open', label: 'Open' },
-  { value: 'observing', label: 'Observing' },
-  { value: 'workshop', label: 'At workshop' },
-  { value: 'resolved', label: 'Resolved' },
-  { value: 'dismissed', label: 'Dismissed' },
+  { value: 'open', label: 'Offen' },
+  { value: 'observing', label: 'Wird beobachtet' },
+  { value: 'workshop', label: 'In der Werkstatt' },
+  { value: 'resolved', label: 'Behoben' },
+  { value: 'dismissed', label: 'Verworfen' },
 ];
 
 export const issueSeverityOptions: { value: Issue['severity']; label: string }[] = [
-  { value: 'low', label: 'Low' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'high', label: 'High' },
+  { value: 'low', label: 'Niedrig' },
+  { value: 'medium', label: 'Mittel' },
+  { value: 'high', label: 'Hoch' },
 ];
 
 export function issueStatusLabel(status: Issue['status']): string {

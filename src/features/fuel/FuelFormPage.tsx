@@ -44,7 +44,7 @@ export function FuelFormPage() {
   if (!vehicleId) {
     return (
       <div className="card">
-        <p>No vehicle selected. Add a vehicle first.</p>
+        <p>Kein Fahrzeug ausgewählt. Füge zuerst ein Fahrzeug hinzu.</p>
       </div>
     );
   }
@@ -74,7 +74,7 @@ export function FuelFormPage() {
       setError(
         err instanceof FuelValidationError || err instanceof Error
           ? err.message
-          : 'Something went wrong.',
+          : 'Etwas ist schiefgelaufen.',
       );
     } finally {
       setSaving(false);
@@ -83,23 +83,23 @@ export function FuelFormPage() {
 
   async function handleDelete() {
     if (!id) return;
-    if (!window.confirm('Delete this fuel entry? This cannot be undone.')) return;
+    if (!window.confirm('Diese Tankung löschen? Dies kann nicht rückgängig gemacht werden.')) return;
     await fuelService.remove(id);
     navigate(-1);
   }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      <h1 style={{ fontSize: 22, fontWeight: 700 }}>{isEditing ? 'Edit fill-up' : 'Add fill-up'}</h1>
+      <h1 style={{ fontSize: 22, fontWeight: 700 }}>{isEditing ? 'Tankung bearbeiten' : 'Tankung hinzufügen'}</h1>
 
       <form onSubmit={handleSubmit} className="card" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div className="field">
-            <label htmlFor="date">Date</label>
+            <label htmlFor="date">Datum</label>
             <input id="date" type="date" required value={current.date} onChange={(e) => set('date', e.target.value)} />
           </div>
           <div className="field">
-            <label htmlFor="mileage">Mileage</label>
+            <label htmlFor="mileage">Kilometerstand</label>
             <input
               id="mileage"
               type="number"
@@ -110,7 +110,7 @@ export function FuelFormPage() {
             />
           </div>
           <div className="field">
-            <label htmlFor="liters">Liters</label>
+            <label htmlFor="liters">Liter</label>
             <input
               id="liters"
               type="number"
@@ -122,7 +122,7 @@ export function FuelFormPage() {
             />
           </div>
           <div className="field">
-            <label htmlFor="pricePerLiter">Price / liter</label>
+            <label htmlFor="pricePerLiter">Preis / Liter</label>
             <input
               id="pricePerLiter"
               type="number"
@@ -134,7 +134,7 @@ export function FuelFormPage() {
             />
           </div>
           <div className="field">
-            <label htmlFor="totalCost">Total cost</label>
+            <label htmlFor="totalCost">Gesamtpreis</label>
             <input
               id="totalCost"
               type="number"
@@ -149,13 +149,13 @@ export function FuelFormPage() {
             />
           </div>
           <div className="field">
-            <label htmlFor="station">Station</label>
+            <label htmlFor="station">Tankstelle</label>
             <input id="station" value={current.station ?? ''} onChange={(e) => set('station', e.target.value)} />
           </div>
         </div>
 
         <div className="field">
-          <label htmlFor="notes">Notes</label>
+          <label htmlFor="notes">Notizen</label>
           <textarea id="notes" rows={2} value={current.notes ?? ''} onChange={(e) => set('notes', e.target.value)} />
         </div>
 
@@ -165,16 +165,16 @@ export function FuelFormPage() {
           <div>
             {isEditing && (
               <button type="button" className="btn btn-secondary" style={{ color: 'var(--color-danger)' }} onClick={handleDelete}>
-                Delete
+                Löschen
               </button>
             )}
           </div>
           <div style={{ display: 'flex', gap: 12 }}>
             <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>
-              Cancel
+              Abbrechen
             </button>
             <button type="submit" className="btn btn-primary" disabled={saving}>
-              {saving ? 'Saving…' : isEditing ? 'Save changes' : 'Add fill-up'}
+              {saving ? 'Wird gespeichert…' : isEditing ? 'Änderungen speichern' : 'Tankung hinzufügen'}
             </button>
           </div>
         </div>

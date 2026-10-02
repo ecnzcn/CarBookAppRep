@@ -131,15 +131,15 @@ const REQUIRED_ARRAYS = [
 function validateBackupShape(value: unknown): string[] {
   const errors: string[] = [];
   if (!value || typeof value !== 'object') {
-    return ['data.json does not contain a valid backup object.'];
+    return ['data.json enthält kein gültiges Backup-Objekt.'];
   }
   const record = value as Record<string, unknown>;
   if (typeof record.version !== 'number') {
-    errors.push('Missing or invalid backup version.');
+    errors.push('Fehlende oder ungültige Backup-Version.');
   }
   for (const key of REQUIRED_ARRAYS) {
     if (!Array.isArray(record[key])) {
-      errors.push(`Missing or invalid "${key}" list.`);
+      errors.push(`Fehlende oder ungültige Liste „${key}“.`);
     }
   }
   return errors;
@@ -160,21 +160,21 @@ export function parseBackup(bytes: Uint8Array): BackupPreview {
   } catch (err) {
     return {
       valid: false,
-      errors: [`Could not read the zip file: ${err instanceof Error ? err.message : 'unknown error'}`],
+      errors: [`ZIP-Datei konnte nicht gelesen werden: ${err instanceof Error ? err.message : 'unbekannter Fehler'}`],
       counts: emptyCounts(),
     };
   }
 
   const dataFile = files['data.json'];
   if (!dataFile) {
-    return { valid: false, errors: ['The backup is missing data.json.'], counts: emptyCounts() };
+    return { valid: false, errors: ['Im Backup fehlt die Datei data.json.'], counts: emptyCounts() };
   }
 
   let parsed: unknown;
   try {
     parsed = JSON.parse(strFromU8(dataFile));
   } catch {
-    return { valid: false, errors: ['data.json is not valid JSON.'], counts: emptyCounts() };
+    return { valid: false, errors: ['data.json ist kein gültiges JSON.'], counts: emptyCounts() };
   }
 
   const errors = validateBackupShape(parsed);

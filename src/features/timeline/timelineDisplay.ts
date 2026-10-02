@@ -2,24 +2,24 @@ import type { TimelineEntryType } from '../../services/timelineService';
 import type { BadgeTone } from '../../ui/components/Badge';
 
 export const timelineTypeOptions: { value: TimelineEntryType | 'all'; label: string }[] = [
-  { value: 'all', label: 'All' },
-  { value: 'maintenance', label: 'Maintenance' },
-  { value: 'repair', label: 'Repairs' },
+  { value: 'all', label: 'Alle' },
+  { value: 'maintenance', label: 'Wartung' },
+  { value: 'repair', label: 'Reparaturen' },
   { value: 'service', label: 'Service' },
-  { value: 'inspection', label: 'Inspections' },
-  { value: 'issue', label: 'Issues' },
-  { value: 'fuel', label: 'Fuel' },
-  { value: 'tire', label: 'Tires' },
+  { value: 'inspection', label: 'Inspektionen' },
+  { value: 'issue', label: 'Probleme' },
+  { value: 'fuel', label: 'Tankungen' },
+  { value: 'tire', label: 'Reifen' },
 ];
 
 const typeLabels: Record<TimelineEntryType, string> = {
-  maintenance: 'Maintenance',
-  repair: 'Repair',
+  maintenance: 'Wartung',
+  repair: 'Reparatur',
   service: 'Service',
-  inspection: 'Inspection',
-  issue: 'Issue',
-  fuel: 'Fuel',
-  tire: 'Tires',
+  inspection: 'Inspektion',
+  issue: 'Problem',
+  fuel: 'Tankung',
+  tire: 'Reifen',
 };
 
 const typeTones: Record<TimelineEntryType, BadgeTone> = {

@@ -26,10 +26,10 @@ export function TiresPage() {
           ← {vehicle?.manufacturer} {vehicle?.model}
         </Link>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
-          <h1 style={{ fontSize: 22, fontWeight: 700 }}>Tires</h1>
+          <h1 style={{ fontSize: 22, fontWeight: 700 }}>Reifen</h1>
           {!adding && (
             <button className="btn btn-primary" onClick={() => setAdding(true)}>
-              Add tire set
+              Reifensatz hinzufügen
             </button>
           )}
         </div>
@@ -50,7 +50,7 @@ export function TiresPage() {
 
       {sets.length === 0 && !adding ? (
         <div className="card">
-          <EmptyState>No tire sets yet. Add your summer, winter, or all-season set.</EmptyState>
+          <EmptyState>Noch keine Reifensätze. Füge deinen Sommer-, Winter- oder Ganzjahresreifensatz hinzu.</EmptyState>
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

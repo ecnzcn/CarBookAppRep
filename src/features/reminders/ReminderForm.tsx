@@ -38,7 +38,7 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
     try {
       await onSubmit(input);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong.');
+      setError(err instanceof Error ? err.message : 'Etwas ist schiefgelaufen.');
     } finally {
       setSaving(false);
     }
@@ -47,17 +47,17 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div className="field">
-        <label htmlFor="title">Title</label>
+        <label htmlFor="title">Titel</label>
         <input id="title" required value={input.title} onChange={(e) => set('title', e.target.value)} />
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
         <div className="field">
-          <label htmlFor="dueDate">Due date</label>
+          <label htmlFor="dueDate">Fälligkeitsdatum</label>
           <input id="dueDate" type="date" value={input.dueDate ?? ''} onChange={(e) => set('dueDate', e.target.value)} />
         </div>
         <div className="field">
-          <label htmlFor="dueMileage">Due mileage</label>
+          <label htmlFor="dueMileage">Fälligkeits-Kilometerstand</label>
           <input
             id="dueMileage"
             type="number"
@@ -67,7 +67,7 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
           />
         </div>
         <div className="field">
-          <label htmlFor="repeatIntervalDays">Repeat every (days)</label>
+          <label htmlFor="repeatIntervalDays">Wiederholung (Tage)</label>
           <input
             id="repeatIntervalDays"
             type="number"
@@ -77,7 +77,7 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
           />
         </div>
         <div className="field">
-          <label htmlFor="repeatIntervalMileage">Repeat every (km)</label>
+          <label htmlFor="repeatIntervalMileage">Wiederholung (km)</label>
           <input
             id="repeatIntervalMileage"
             type="number"
@@ -90,11 +90,11 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
 
       <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14 }}>
         <input type="checkbox" checked={input.enabled} onChange={(e) => set('enabled', e.target.checked)} />
-        Enabled
+        Aktiviert
       </label>
 
       <div className="field">
-        <label htmlFor="notes">Notes</label>
+        <label htmlFor="notes">Notizen</label>
         <textarea id="notes" rows={2} value={input.notes ?? ''} onChange={(e) => set('notes', e.target.value)} />
       </div>
 
@@ -102,10 +102,10 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
 
       <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
         <button type="button" className="btn btn-secondary" onClick={onCancel}>
-          Cancel
+          Abbrechen
         </button>
         <button type="submit" className="btn btn-primary" disabled={saving}>
-          {saving ? 'Saving…' : 'Save reminder'}
+          {saving ? 'Wird gespeichert…' : 'Erinnerung speichern'}
         </button>
       </div>
     </form>

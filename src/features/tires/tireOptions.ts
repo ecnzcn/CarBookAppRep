@@ -1,15 +1,15 @@
 import type { TireEvent, TireSet } from '../../db/types';
 
 export const tireSeasonOptions: { value: TireSet['season']; label: string }[] = [
-  { value: 'summer', label: 'Summer' },
+  { value: 'summer', label: 'Sommer' },
   { value: 'winter', label: 'Winter' },
-  { value: 'allSeason', label: 'All-season' },
+  { value: 'allSeason', label: 'Ganzjahresreifen' },
 ];
 
 export const tireActionOptions: { value: TireEvent['action']; label: string }[] = [
-  { value: 'mounted', label: 'Mounted' },
-  { value: 'removed', label: 'Removed' },
-  { value: 'inspected', label: 'Inspected' },
+  { value: 'mounted', label: 'Montiert' },
+  { value: 'removed', label: 'Demontiert' },
+  { value: 'inspected', label: 'Geprüft' },
 ];
 
 export function tireSeasonLabel(season: TireSet['season']): string {

@@ -9,15 +9,15 @@ export function VehicleListPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1 style={{ fontSize: 22, fontWeight: 700 }}>Vehicles</h1>
+        <h1 style={{ fontSize: 22, fontWeight: 700 }}>Fahrzeuge</h1>
         <Link to="/vehicles/new" className="btn btn-primary">
-          Add vehicle
+          Fahrzeug hinzufügen
         </Link>
       </div>
 
       {vehicles === undefined ? null : vehicles.length === 0 ? (
         <div className="card">
-          <EmptyState>No vehicles yet. Add your first vehicle to start your logbook.</EmptyState>
+          <EmptyState>Noch keine Fahrzeuge. Füge dein erstes Fahrzeug hinzu, um dein Fahrtenbuch zu starten.</EmptyState>
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -28,7 +28,7 @@ export function VehicleListPage() {
                 {vehicle.year ? ` (${vehicle.year})` : ''}
               </div>
               <div style={{ color: 'var(--color-text-muted)', fontSize: 14, marginTop: 4 }}>
-                {vehicle.currentMileage.toLocaleString()} km
+                {vehicle.currentMileage.toLocaleString('de-DE')} km
                 {vehicle.licensePlate ? ` · ${vehicle.licensePlate}` : ''}
               </div>
             </Link>

@@ -6,6 +6,7 @@ import { tireService, type TireEventInput } from '../../services/tireService';
 import { tireActionLabel, tireActionOptions, tireSeasonLabel } from './tireOptions';
 import { TireSetForm } from './TireSetForm';
 import { Badge } from '../../ui/components/Badge';
+import { formatDateDe } from '../../ui/formatDate';
 
 function todayIso() {
   return new Date().toISOString().slice(0, 10);
@@ -41,7 +42,7 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
   }
 
   async function handleDeleteSet() {
-    if (!window.confirm('Delete this tire set and its events? This cannot be undone.')) return;
+    if (!window.confirm('Diesen Reifensatz und seine Ereignisse löschen? Dies kann nicht rückgängig gemacht werden.')) return;
     await tireService.sets.remove(set.id);
   }
 
@@ -53,7 +54,7 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
       setAddingEvent(false);
       setEventInput({ date: todayIso(), mileage: undefined, action: 'mounted', notes: '' });
     } catch (err) {
-      setEventError(err instanceof Error ? err.message : 'Something went wrong.');
+      setEventError(err instanceof Error ? err.message : 'Etwas ist schiefgelaufen.');
     }
   }
 
@@ -74,19 +75,19 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
           <p style={{ color: 'var(--color-text-muted)', fontSize: 13, marginTop: 4 }}>
             {[set.size, set.dot && `DOT ${set.dot}`, set.treadDepth !== undefined && `${set.treadDepth}mm`]
               .filter(Boolean)
-              .join(' · ') || 'No details yet'}
+              .join(' · ') || 'Noch keine Details'}
           </p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <button className="btn btn-secondary" style={{ padding: '4px 10px' }} onClick={() => setEditing(true)}>
-            Edit
+            Bearbeiten
           </button>
           <button
             className="btn btn-secondary"
             style={{ padding: '4px 10px', color: 'var(--color-danger)' }}
             onClick={handleDeleteSet}
           >
-            Delete
+            Löschen
           </button>
         </div>
       </div>
@@ -105,8 +106,8 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
               }}
             >
               <span>
-                {ev.date} · {tireActionLabel(ev.action)}
-                {ev.mileage !== undefined ? ` · ${ev.mileage.toLocaleString()} km` : ''}
+                {formatDateDe(ev.date)} · {tireActionLabel(ev.action)}
+                {ev.mileage !== undefined ? ` · ${ev.mileage.toLocaleString('de-DE')} km` : ''}
                 {ev.notes ? ` · ${ev.notes}` : ''}
               </span>
               <button
@@ -114,7 +115,7 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
                 onClick={() => handleRemoveEvent(ev.id)}
                 style={{ color: 'var(--color-text-muted)', background: 'none', border: 'none', cursor: 'pointer' }}
               >
-                Remove
+                Entfernen
               </button>
             </li>
           ))}
@@ -125,7 +126,7 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
         <form onSubmit={handleAddEvent} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
             <div className="field">
-              <label>Date</label>
+              <label>Datum</label>
               <input
                 type="date"
                 required
@@ -134,7 +135,7 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
               />
             </div>
             <div className="field">
-              <label>Action</label>
+              <label>Aktion</label>
               <select
                 value={eventInput.action}
                 onChange={(e) =>
@@ -149,7 +150,7 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
               </select>
             </div>
             <div className="field">
-              <label>Mileage</label>
+              <label>Kilometerstand</label>
               <input
                 type="number"
                 min={0}
@@ -166,16 +167,16 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
           {eventError && <p style={{ color: 'var(--color-danger)', fontSize: 13 }}>{eventError}</p>}
           <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
             <button type="button" className="btn btn-secondary" onClick={() => setAddingEvent(false)}>
-              Cancel
+              Abbrechen
             </button>
             <button type="submit" className="btn btn-primary">
-              Add event
+              Ereignis hinzufügen
             </button>
           </div>
         </form>
       ) : (
         <button type="button" className="btn btn-secondary" style={{ alignSelf: 'flex-start' }} onClick={() => setAddingEvent(true)}>
-          Add mount / remove event
+          Montage-/Demontage-Ereignis hinzufügen
         </button>
       )}
     </div>

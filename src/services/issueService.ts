@@ -18,16 +18,16 @@ export class IssueValidationError extends Error {}
 
 function assertValid(input: IssueInput) {
   if (!input.vehicleId) {
-    throw new IssueValidationError('A vehicle is required.');
+    throw new IssueValidationError('Ein Fahrzeug ist erforderlich.');
   }
   if (!input.title.trim()) {
-    throw new IssueValidationError('Title is required.');
+    throw new IssueValidationError('Titel ist erforderlich.');
   }
   if (!input.date) {
-    throw new IssueValidationError('Date is required.');
+    throw new IssueValidationError('Datum ist erforderlich.');
   }
   if (input.mileage !== undefined && input.mileage < 0) {
-    throw new IssueValidationError('Mileage cannot be negative.');
+    throw new IssueValidationError('Kilometerstand darf nicht negativ sein.');
   }
 }
 

@@ -18,13 +18,13 @@ export class ReminderValidationError extends Error {}
 
 function assertValid(input: ReminderInput) {
   if (!input.vehicleId) {
-    throw new ReminderValidationError('A vehicle is required.');
+    throw new ReminderValidationError('Ein Fahrzeug ist erforderlich.');
   }
   if (!input.title.trim()) {
-    throw new ReminderValidationError('Title is required.');
+    throw new ReminderValidationError('Titel ist erforderlich.');
   }
   if (!input.dueDate && input.dueMileage === undefined) {
-    throw new ReminderValidationError('Set a due date, a due mileage, or both.');
+    throw new ReminderValidationError('Lege ein Fälligkeitsdatum, einen Fälligkeits-Kilometerstand oder beides fest.');
   }
 }
 

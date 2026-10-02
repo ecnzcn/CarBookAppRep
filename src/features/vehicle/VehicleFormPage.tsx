@@ -31,12 +31,12 @@ export function VehicleFormPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       <h1 style={{ fontSize: 22, fontWeight: 700 }}>
-        {isEditing ? 'Edit vehicle' : 'Add vehicle'}
+        {isEditing ? 'Fahrzeug bearbeiten' : 'Fahrzeug hinzufügen'}
       </h1>
       <div className="card">
         <VehicleForm
           initial={vehicle}
-          submitLabel={isEditing ? 'Save changes' : 'Add vehicle'}
+          submitLabel={isEditing ? 'Änderungen speichern' : 'Fahrzeug hinzufügen'}
           onSubmit={handleSubmit}
           onCancel={() => navigate(-1)}
         />
