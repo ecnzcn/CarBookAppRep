@@ -53,11 +53,11 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
 
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 12 }}>
         <div className="field">
-          <label htmlFor="dueDate">Fälligkeitsdatum</label>
+          <label htmlFor="dueDate">Fällig am</label>
           <input id="dueDate" type="date" value={input.dueDate ?? ''} onChange={(e) => set('dueDate', e.target.value)} />
         </div>
         <div className="field">
-          <label htmlFor="dueMileage">Fälligkeits-Kilometerstand</label>
+          <label htmlFor="dueMileage">Fällig bei (km)</label>
           <input
             id="dueMileage"
             type="number"

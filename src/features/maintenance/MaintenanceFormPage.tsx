@@ -159,7 +159,7 @@ export function MaintenanceFormPage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16 }}>
           <div className="field">
-            <label htmlFor="nextDate">Nächstes Fälligkeitsdatum</label>
+            <label htmlFor="nextDate">Fällig am</label>
             <input
               id="nextDate"
               type="date"
@@ -168,7 +168,7 @@ export function MaintenanceFormPage() {
             />
           </div>
           <div className="field">
-            <label htmlFor="nextMileage">Nächster Fälligkeits-Kilometerstand</label>
+            <label htmlFor="nextMileage">Fällig bei (km)</label>
             <input
               id="nextMileage"
               type="number"
