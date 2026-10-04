@@ -1,0 +1,180 @@
+import { useLiveQuery } from 'dexie-react-hooks';
+import { useState, type FormEvent } from 'react';
+import type { TireSet } from '../../db/types';
+import { tireEventRepository } from '../../repositories/tireEventRepository';
+import { tireService, type TireEventInput } from '../../services/tireService';
+import { tireActionLabel, tireActionOptions, tireSeasonLabel } from './tireOptions';
+import { TireSetForm } from './TireSetForm';
+import { Badge } from '../../ui/components/Badge';
+import { formatDateDe } from '../../ui/formatDate';
+import { NumberInput } from '../../ui/components/NumberInput';
+
+function todayIso() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: string }) {
+  const [editing, setEditing] = useState(false);
+  const [addingEvent, setAddingEvent] = useState(false);
+  const [eventInput, setEventInput] = useState<Pick<TireEventInput, 'date' | 'mileage' | 'action' | 'notes'>>({
+    date: todayIso(),
+    mileage: undefined,
+    action: 'mounted',
+    notes: '',
+  });
+  const [eventError, setEventError] = useState<string | null>(null);
+
+  const events = useLiveQuery(() => tireEventRepository.getByTireSet(set.id), [set.id]);
+
+  if (editing) {
+    return (
+      <div className="card">
+        <TireSetForm
+          vehicleId={vehicleId}
+          initial={set}
+          onCancel={() => setEditing(false)}
+          onSubmit={async (input) => {
+            await tireService.sets.update(set.id, input);
+            setEditing(false);
+          }}
+        />
+      </div>
+    );
+  }
+
+  async function handleDeleteSet() {
+    if (!window.confirm('Diesen Reifensatz und seine Ereignisse löschen? Dies kann nicht rückgängig gemacht werden.')) return;
+    await tireService.sets.remove(set.id);
+  }
+
+  async function handleAddEvent(event: FormEvent) {
+    event.preventDefault();
+    setEventError(null);
+    try {
+      await tireService.events.create({ tireSetId: set.id, ...eventInput }, vehicleId);
+      setAddingEvent(false);
+      setEventInput({ date: todayIso(), mileage: undefined, action: 'mounted', notes: '' });
+    } catch (err) {
+      setEventError(err instanceof Error ? err.message : 'Etwas ist schiefgelaufen.');
+    }
+  }
+
+  async function handleRemoveEvent(id: string) {
+    await tireService.events.remove(id);
+  }
+
+  return (
+    <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            <Badge tone="accent">{tireSeasonLabel(set.season)}</Badge>
+            <strong>
+              {set.manufacturer} {set.model}
+            </strong>
+          </div>
+          <p style={{ color: 'var(--color-text-muted)', fontSize: 13, marginTop: 4 }}>
+            {[set.size, set.dot && `DOT ${set.dot}`, set.treadDepth !== undefined && `${set.treadDepth}mm`]
+              .filter(Boolean)
+              .join(' · ') || 'Noch keine Details'}
+          </p>
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button className="btn btn-secondary" style={{ padding: '4px 10px' }} onClick={() => setEditing(true)}>
+            Bearbeiten
+          </button>
+          <button
+            className="btn btn-secondary"
+            style={{ padding: '4px 10px', color: 'var(--color-danger)' }}
+            onClick={handleDeleteSet}
+          >
+            Löschen
+          </button>
+        </div>
+      </div>
+
+      {events !== undefined && events.length > 0 && (
+        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {events.map((ev) => (
+            <li
+              key={ev.id}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                fontSize: 13,
+                borderTop: '1px solid var(--color-border)',
+                paddingTop: 6,
+                flexWrap: 'wrap',
+                gap: 8,
+              }}
+            >
+              <span style={{ minWidth: 0 }}>
+                {formatDateDe(ev.date)} · {tireActionLabel(ev.action)}
+                {ev.mileage !== undefined ? ` · ${ev.mileage.toLocaleString('de-DE')} km` : ''}
+                {ev.notes ? ` · ${ev.notes}` : ''}
+              </span>
+              <button
+                type="button"
+                onClick={() => handleRemoveEvent(ev.id)}
+                style={{ color: 'var(--color-text-muted)', background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                Entfernen
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {addingEvent ? (
+        <form onSubmit={handleAddEvent} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', gap: 8 }}>
+            <div className="field">
+              <label>Datum</label>
+              <input
+                type="date"
+                required
+                value={eventInput.date}
+                onChange={(e) => setEventInput((prev) => ({ ...prev, date: e.target.value }))}
+              />
+            </div>
+            <div className="field">
+              <label>Aktion</label>
+              <select
+                value={eventInput.action}
+                onChange={(e) =>
+                  setEventInput((prev) => ({ ...prev, action: e.target.value as TireEventInput['action'] }))
+                }
+              >
+                {tireActionOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="field">
+              <label>Kilometerstand</label>
+              <NumberInput
+                value={eventInput.mileage}
+                onChange={(v) => setEventInput((prev) => ({ ...prev, mileage: v }))}
+              />
+            </div>
+          </div>
+          {eventError && <p style={{ color: 'var(--color-danger)', fontSize: 13 }}>{eventError}</p>}
+          <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+            <button type="button" className="btn btn-secondary" onClick={() => setAddingEvent(false)}>
+              Abbrechen
+            </button>
+            <button type="submit" className="btn btn-primary">
+              Ereignis hinzufügen
+            </button>
+          </div>
+        </form>
+      ) : (
+        <button type="button" className="btn btn-secondary" style={{ alignSelf: 'flex-start' }} onClick={() => setAddingEvent(true)}>
+          Montage-/Demontage-Ereignis hinzufügen
+        </button>
+      )}
+    </div>
+  );
+}
