@@ -2,8 +2,25 @@ import { useState } from 'react';
 import { changelog } from '../../app/changelog';
 import { formatDateDe } from '../../ui/formatDate';
 
+type CheckState = 'idle' | 'checking' | 'upToDate' | 'found' | 'offline';
+
+const checkMessages: Record<Exclude<CheckState, 'idle' | 'checking'>, string> = {
+  upToDate: 'Du hast die neueste Version.',
+  found: 'Neue Version gefunden — tippe unten auf „Jetzt aktualisieren".',
+  offline: 'Keine Internetverbindung — Prüfung nicht möglich.',
+};
+
+async function checkForUpdate(): Promise<CheckState> {
+  if (!navigator.onLine) return 'offline';
+  const registration = await navigator.serviceWorker?.getRegistration();
+  if (!registration) return 'upToDate';
+  await registration.update();
+  return registration.waiting || registration.installing ? 'found' : 'upToDate';
+}
+
 export function VersionSection() {
   const [expanded, setExpanded] = useState(false);
+  const [checkState, setCheckState] = useState<CheckState>('idle');
   const [latest, ...older] = changelog;
 
   return (
@@ -15,10 +32,27 @@ export function VersionSection() {
             Veröffentlicht am {formatDateDe(latest.date)}
           </p>
         </div>
-        <button type="button" className="btn btn-secondary" onClick={() => setExpanded((v) => !v)}>
-          {expanded ? 'Änderungsprotokoll ausblenden' : 'Was ist neu?'}
-        </button>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            disabled={checkState === 'checking'}
+            onClick={async () => {
+              setCheckState('checking');
+              setCheckState(await checkForUpdate().catch((): CheckState => 'offline'));
+            }}
+          >
+            {checkState === 'checking' ? 'Wird geprüft…' : 'Nach Updates suchen'}
+          </button>
+          <button type="button" className="btn btn-secondary" onClick={() => setExpanded((v) => !v)}>
+            {expanded ? 'Änderungsprotokoll ausblenden' : 'Was ist neu?'}
+          </button>
+        </div>
       </div>
+
+      {checkState !== 'idle' && checkState !== 'checking' && (
+        <p style={{ fontSize: 13, color: 'var(--color-text-muted)', marginTop: 10 }}>{checkMessages[checkState]}</p>
+      )}
 
       {expanded && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 14 }}>

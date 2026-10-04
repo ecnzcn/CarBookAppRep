@@ -21,9 +21,13 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['icons/icon-192.png', 'icons/icon-512.png'],
+      // "prompt": the app shows its own "Neue Version verfügbar" banner and
+      // activates the new service worker when the user taps it.
+      registerType: 'prompt',
+      injectRegister: false,
+      includeAssets: ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'],
       manifest: {
+        id: base,
         name: 'CarBook',
         short_name: 'CarBook',
         description: 'Dein privates, offline-first Fahrzeug-Fahrtenbuch.',
@@ -54,8 +58,6 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest}'],
-        skipWaiting: true,
-        clientsClaim: true,
         cleanupOutdatedCaches: true,
       },
     }),

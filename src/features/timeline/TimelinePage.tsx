@@ -16,6 +16,7 @@ import type { Issue } from '../../db/types';
 import { Badge } from '../../ui/components/Badge';
 import { EmptyState } from '../../ui/components/EmptyState';
 import { formatDateDe } from '../../ui/formatDate';
+import { parseNumber } from '../../ui/components/NumberInput';
 import styles from './Timeline.module.css';
 
 const germanMonths = [
@@ -109,10 +110,10 @@ export function TimelinePage() {
     result = filterTimelineEntries(result, {
       from: advanced.from || undefined,
       to: advanced.to || undefined,
-      minCost: advanced.minCost ? Number(advanced.minCost) : undefined,
-      maxCost: advanced.maxCost ? Number(advanced.maxCost) : undefined,
-      minMileage: advanced.minMileage ? Number(advanced.minMileage) : undefined,
-      maxMileage: advanced.maxMileage ? Number(advanced.maxMileage) : undefined,
+      minCost: parseNumber(advanced.minCost),
+      maxCost: parseNumber(advanced.maxCost),
+      minMileage: parseNumber(advanced.minMileage),
+      maxMileage: parseNumber(advanced.maxMileage),
     });
     if (searchText.trim()) {
       result = result.filter((e) => matchesText(e, searchText) || matchedByDocument.has(e.id));
@@ -203,19 +204,19 @@ export function TimelinePage() {
           </div>
           <div className="field">
             <label>Kosten min.</label>
-            <input type="number" min={0} value={advanced.minCost} onChange={(e) => setAdvanced((p) => ({ ...p, minCost: e.target.value }))} />
+            <input type="text" inputMode="decimal" value={advanced.minCost} onChange={(e) => setAdvanced((p) => ({ ...p, minCost: e.target.value }))} />
           </div>
           <div className="field">
             <label>Kosten max.</label>
-            <input type="number" min={0} value={advanced.maxCost} onChange={(e) => setAdvanced((p) => ({ ...p, maxCost: e.target.value }))} />
+            <input type="text" inputMode="decimal" value={advanced.maxCost} onChange={(e) => setAdvanced((p) => ({ ...p, maxCost: e.target.value }))} />
           </div>
           <div className="field">
             <label>Kilometerstand min.</label>
-            <input type="number" min={0} value={advanced.minMileage} onChange={(e) => setAdvanced((p) => ({ ...p, minMileage: e.target.value }))} />
+            <input type="text" inputMode="numeric" value={advanced.minMileage} onChange={(e) => setAdvanced((p) => ({ ...p, minMileage: e.target.value }))} />
           </div>
           <div className="field">
             <label>Kilometerstand max.</label>
-            <input type="number" min={0} value={advanced.maxMileage} onChange={(e) => setAdvanced((p) => ({ ...p, maxMileage: e.target.value }))} />
+            <input type="text" inputMode="numeric" value={advanced.maxMileage} onChange={(e) => setAdvanced((p) => ({ ...p, maxMileage: e.target.value }))} />
           </div>
           <div style={{ display: 'flex', alignItems: 'flex-end' }}>
             <button type="button" className="btn btn-secondary" onClick={() => setAdvanced(emptyAdvancedFilters)}>

@@ -11,12 +11,13 @@ import type { Maintenance } from '../../db/types';
 import { maintenanceTypeOptions } from './maintenanceOptions';
 import { DocumentAttachments } from '../documents/DocumentAttachments';
 import { useActiveVehicle } from '../../app/useActiveVehicle';
+import { NumberInput } from '../../ui/components/NumberInput';
 
 function toInput(vehicleId: string, entry?: Maintenance): MaintenanceInput {
   return {
     vehicleId,
     date: entry?.date ?? new Date().toISOString().slice(0, 10),
-    mileage: entry?.mileage ?? 0,
+    mileage: entry?.mileage ?? NaN,
     type: entry?.type ?? 'maintenance',
     title: entry?.title ?? '',
     description: entry?.description ?? '',
@@ -121,25 +122,11 @@ export function MaintenanceFormPage() {
           </div>
           <div className="field">
             <label htmlFor="mileage">Kilometerstand</label>
-            <input
-              id="mileage"
-              type="number"
-              min={0}
-              required
-              value={current.mileage}
-              onChange={(e) => set('mileage', Number(e.target.value))}
-            />
+            <NumberInput id="mileage" required value={current.mileage} onChange={(v) => set('mileage', v ?? NaN)} />
           </div>
           <div className="field">
             <label htmlFor="cost">Kosten</label>
-            <input
-              id="cost"
-              type="number"
-              min={0}
-              step="0.01"
-              value={current.cost ?? ''}
-              onChange={(e) => set('cost', e.target.value ? Number(e.target.value) : undefined)}
-            />
+            <NumberInput id="cost" decimal value={current.cost} onChange={(v) => set('cost', v)} />
           </div>
           <div className="field">
             <label htmlFor="workshop">Werkstatt</label>
@@ -169,13 +156,7 @@ export function MaintenanceFormPage() {
           </div>
           <div className="field">
             <label htmlFor="nextMileage">Fällig bei (km)</label>
-            <input
-              id="nextMileage"
-              type="number"
-              min={0}
-              value={current.nextMileage ?? ''}
-              onChange={(e) => set('nextMileage', e.target.value ? Number(e.target.value) : undefined)}
-            />
+            <NumberInput id="nextMileage" value={current.nextMileage} onChange={(v) => set('nextMileage', v)} />
           </div>
         </div>
 

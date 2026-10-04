@@ -11,6 +11,7 @@ import { TiresPage } from './features/tires/TiresPage';
 import { TimelinePage } from './features/timeline/TimelinePage';
 import { CostsPage } from './features/costs/CostsPage';
 import { SettingsPage } from './features/settings/SettingsPage';
+import { UpdatePrompt } from './app/UpdatePrompt';
 
 export function App() {
   return (
@@ -32,6 +33,7 @@ export function App() {
         <Route path="/costs" element={<CostsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
       </Routes>
+      <UpdatePrompt />
     </AppShell>
   );
 }

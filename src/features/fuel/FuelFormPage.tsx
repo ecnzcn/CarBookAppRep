@@ -5,15 +5,16 @@ import { fuelRepository } from '../../repositories/fuelRepository';
 import { fuelService, FuelValidationError, type FuelInput } from '../../services/fuelService';
 import type { FuelEntry } from '../../db/types';
 import { useActiveVehicle } from '../../app/useActiveVehicle';
+import { NumberInput } from '../../ui/components/NumberInput';
 
 function toInput(vehicleId: string, entry?: FuelEntry): FuelInput {
   return {
     vehicleId,
     date: entry?.date ?? new Date().toISOString().slice(0, 10),
-    mileage: entry?.mileage ?? 0,
-    liters: entry?.liters ?? 0,
-    pricePerLiter: entry?.pricePerLiter ?? 0,
-    totalCost: entry?.totalCost ?? 0,
+    mileage: entry?.mileage ?? NaN,
+    liters: entry?.liters ?? NaN,
+    pricePerLiter: entry?.pricePerLiter ?? NaN,
+    totalCost: entry?.totalCost ?? NaN,
     station: entry?.station ?? '',
     notes: entry?.notes ?? '',
   };
@@ -100,51 +101,32 @@ export function FuelFormPage() {
           </div>
           <div className="field">
             <label htmlFor="mileage">Kilometerstand</label>
-            <input
-              id="mileage"
-              type="number"
-              min={0}
-              required
-              value={current.mileage}
-              onChange={(e) => set('mileage', Number(e.target.value))}
-            />
+            <NumberInput id="mileage" required value={current.mileage} onChange={(v) => set('mileage', v ?? NaN)} />
           </div>
           <div className="field">
             <label htmlFor="liters">Liter</label>
-            <input
-              id="liters"
-              type="number"
-              min={0}
-              step="0.01"
-              required
-              value={current.liters}
-              onChange={(e) => set('liters', Number(e.target.value))}
-            />
+            <NumberInput id="liters" decimal required value={current.liters} onChange={(v) => set('liters', v ?? NaN)} />
           </div>
           <div className="field">
             <label htmlFor="pricePerLiter">Preis / Liter</label>
-            <input
+            <NumberInput
               id="pricePerLiter"
-              type="number"
-              min={0}
-              step="0.001"
+              decimal
               required
               value={current.pricePerLiter}
-              onChange={(e) => set('pricePerLiter', Number(e.target.value))}
+              onChange={(v) => set('pricePerLiter', v ?? NaN)}
             />
           </div>
           <div className="field">
             <label htmlFor="totalCost">Gesamtpreis</label>
-            <input
+            <NumberInput
               id="totalCost"
-              type="number"
-              min={0}
-              step="0.01"
+              decimal
               required
               value={current.totalCost}
-              onChange={(e) => {
+              onChange={(v) => {
                 setTotalCostTouched(true);
-                set('totalCost', Number(e.target.value));
+                set('totalCost', v ?? NaN);
               }}
             />
           </div>

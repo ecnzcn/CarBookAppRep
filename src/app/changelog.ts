@@ -7,6 +7,16 @@ export interface ChangelogEntry {
 /** Most recent first. Keep in sync with CHANGELOG.md and package.json's version. */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '1.1.0',
+    date: '2026-10-04',
+    notes: [
+      'Zahlenfelder lassen sich leeren und öffnen auf dem iPhone den Ziffernblock',
+      'Automatische Updates: Hinweis „Neue Version verfügbar" – kein erneutes Hinzufügen zum Home-Bildschirm nötig',
+      '„Nach Updates suchen" in den Einstellungen',
+      'Neues App-Icon',
+    ],
+  },
+  {
     version: '1.0.1',
     date: '2026-10-04',
     notes: [

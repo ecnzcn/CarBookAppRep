@@ -7,6 +7,7 @@ import { tireActionLabel, tireActionOptions, tireSeasonLabel } from './tireOptio
 import { TireSetForm } from './TireSetForm';
 import { Badge } from '../../ui/components/Badge';
 import { formatDateDe } from '../../ui/formatDate';
+import { NumberInput } from '../../ui/components/NumberInput';
 
 function todayIso() {
   return new Date().toISOString().slice(0, 10);
@@ -153,16 +154,9 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
             </div>
             <div className="field">
               <label>Kilometerstand</label>
-              <input
-                type="number"
-                min={0}
-                value={eventInput.mileage ?? ''}
-                onChange={(e) =>
-                  setEventInput((prev) => ({
-                    ...prev,
-                    mileage: e.target.value ? Number(e.target.value) : undefined,
-                  }))
-                }
+              <NumberInput
+                value={eventInput.mileage}
+                onChange={(v) => setEventInput((prev) => ({ ...prev, mileage: v }))}
               />
             </div>
           </div>

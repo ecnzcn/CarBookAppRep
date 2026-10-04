@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import type { Vehicle } from '../../db/types';
 import type { VehicleInput } from '../../services/vehicleService';
 import { drivetrainOptions, fuelTypeOptions, transmissionOptions } from './vehicleOptions';
+import { NumberInput } from '../../ui/components/NumberInput';
 
 interface VehicleFormProps {
   initial?: Vehicle;
@@ -22,7 +23,7 @@ function toInput(vehicle?: Vehicle): VehicleInput {
     drivetrain: vehicle?.drivetrain,
     vin: vehicle?.vin ?? '',
     licensePlate: vehicle?.licensePlate ?? '',
-    currentMileage: vehicle?.currentMileage ?? 0,
+    currentMileage: vehicle?.currentMileage ?? NaN,
     purchaseDate: vehicle?.purchaseDate ?? '',
     purchasePrice: vehicle?.purchasePrice,
     notes: vehicle?.notes ?? '',
@@ -82,12 +83,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
         </div>
         <div className="field">
           <label htmlFor="year">Baujahr</label>
-          <input
-            id="year"
-            type="number"
-            value={input.year ?? ''}
-            onChange={(e) => set('year', e.target.value ? Number(e.target.value) : undefined)}
-          />
+          <NumberInput id="year" value={input.year} onChange={(v) => set('year', v)} />
         </div>
         <div className="field">
           <label htmlFor="engine">Motor</label>
@@ -165,13 +161,11 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
         </div>
         <div className="field">
           <label htmlFor="currentMileage">Aktueller Kilometerstand</label>
-          <input
+          <NumberInput
             id="currentMileage"
-            type="number"
-            min={0}
             required
             value={input.currentMileage}
-            onChange={(e) => set('currentMileage', Number(e.target.value))}
+            onChange={(v) => set('currentMileage', v ?? NaN)}
           />
         </div>
         <div className="field">
@@ -185,14 +179,11 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
         </div>
         <div className="field">
           <label htmlFor="purchasePrice">Kaufpreis</label>
-          <input
+          <NumberInput
             id="purchasePrice"
-            type="number"
-            min={0}
-            value={input.purchasePrice ?? ''}
-            onChange={(e) =>
-              set('purchasePrice', e.target.value ? Number(e.target.value) : undefined)
-            }
+            decimal
+            value={input.purchasePrice}
+            onChange={(v) => set('purchasePrice', v)}
           />
         </div>
       </div>

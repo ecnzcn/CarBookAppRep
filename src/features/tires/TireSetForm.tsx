@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import type { TireSet } from '../../db/types';
 import type { TireSetInput } from '../../services/tireService';
 import { tireSeasonOptions } from './tireOptions';
+import { NumberInput } from '../../ui/components/NumberInput';
 
 function toInput(vehicleId: string, set?: TireSet): TireSetInput {
   return {
@@ -79,14 +80,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
         </div>
         <div className="field">
           <label htmlFor="treadDepth">Profiltiefe (mm)</label>
-          <input
-            id="treadDepth"
-            type="number"
-            min={0}
-            step="0.1"
-            value={input.treadDepth ?? ''}
-            onChange={(e) => set('treadDepth', e.target.value ? Number(e.target.value) : undefined)}
-          />
+          <NumberInput id="treadDepth" decimal value={input.treadDepth} onChange={(v) => set('treadDepth', v)} />
         </div>
         <div className="field">
           <label htmlFor="purchaseDate">Kaufdatum</label>
@@ -99,24 +93,11 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
         </div>
         <div className="field">
           <label htmlFor="purchaseMileage">Kilometerstand beim Kauf</label>
-          <input
-            id="purchaseMileage"
-            type="number"
-            min={0}
-            value={input.purchaseMileage ?? ''}
-            onChange={(e) => set('purchaseMileage', e.target.value ? Number(e.target.value) : undefined)}
-          />
+          <NumberInput id="purchaseMileage" value={input.purchaseMileage} onChange={(v) => set('purchaseMileage', v)} />
         </div>
         <div className="field">
           <label htmlFor="cost">Kosten</label>
-          <input
-            id="cost"
-            type="number"
-            min={0}
-            step="0.01"
-            value={input.cost ?? ''}
-            onChange={(e) => set('cost', e.target.value ? Number(e.target.value) : undefined)}
-          />
+          <NumberInput id="cost" decimal value={input.cost} onChange={(v) => set('cost', v)} />
         </div>
       </div>
 

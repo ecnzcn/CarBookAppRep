@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import type { Reminder } from '../../db/types';
 import type { ReminderInput } from '../../services/reminderService';
+import { NumberInput } from '../../ui/components/NumberInput';
 
 function toInput(vehicleId: string, reminder?: Reminder): ReminderInput {
   return {
@@ -58,33 +59,15 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
         </div>
         <div className="field">
           <label htmlFor="dueMileage">Fällig bei (km)</label>
-          <input
-            id="dueMileage"
-            type="number"
-            min={0}
-            value={input.dueMileage ?? ''}
-            onChange={(e) => set('dueMileage', e.target.value ? Number(e.target.value) : undefined)}
-          />
+          <NumberInput id="dueMileage" value={input.dueMileage} onChange={(v) => set('dueMileage', v)} />
         </div>
         <div className="field">
           <label htmlFor="repeatIntervalDays">Wiederholung (Tage)</label>
-          <input
-            id="repeatIntervalDays"
-            type="number"
-            min={0}
-            value={input.repeatIntervalDays ?? ''}
-            onChange={(e) => set('repeatIntervalDays', e.target.value ? Number(e.target.value) : undefined)}
-          />
+          <NumberInput id="repeatIntervalDays" value={input.repeatIntervalDays} onChange={(v) => set('repeatIntervalDays', v)} />
         </div>
         <div className="field">
           <label htmlFor="repeatIntervalMileage">Wiederholung (km)</label>
-          <input
-            id="repeatIntervalMileage"
-            type="number"
-            min={0}
-            value={input.repeatIntervalMileage ?? ''}
-            onChange={(e) => set('repeatIntervalMileage', e.target.value ? Number(e.target.value) : undefined)}
-          />
+          <NumberInput id="repeatIntervalMileage" value={input.repeatIntervalMileage} onChange={(v) => set('repeatIntervalMileage', v)} />
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import type { Issue } from '../../db/types';
 import { issueSeverityOptions, issueStatusOptions } from './issueOptions';
 import { DocumentAttachments } from '../documents/DocumentAttachments';
 import { useActiveVehicle } from '../../app/useActiveVehicle';
+import { NumberInput } from '../../ui/components/NumberInput';
 
 function toInput(vehicleId: string, issue?: Issue): IssueInput {
   return {
@@ -118,13 +119,7 @@ export function IssueFormPage() {
           </div>
           <div className="field">
             <label htmlFor="mileage">Kilometerstand</label>
-            <input
-              id="mileage"
-              type="number"
-              min={0}
-              value={current.mileage ?? ''}
-              onChange={(e) => set('mileage', e.target.value ? Number(e.target.value) : undefined)}
-            />
+            <NumberInput id="mileage" value={current.mileage} onChange={(v) => set('mileage', v)} />
           </div>
           <div className="field">
             <label htmlFor="status">Status</label>

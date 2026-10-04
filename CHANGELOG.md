@@ -4,6 +4,13 @@ All notable changes to CarBook are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-10-04
+
+- Zahlenfelder lassen sich leeren und öffnen auf dem iPhone den Ziffernblock
+- Automatische Updates: Hinweis „Neue Version verfügbar" – kein erneutes Hinzufügen zum Home-Bildschirm nötig
+- „Nach Updates suchen" in den Einstellungen
+- Neues App-Icon
+
 ## [1.0.1] - 2026-10-04
 
 - iPhone: Datumsfelder überlappen keine Nachbarfelder mehr
