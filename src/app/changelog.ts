@@ -7,6 +7,16 @@ export interface ChangelogEntry {
 /** Most recent first. Keep in sync with CHANGELOG.md and package.json's version. */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '1.0.1',
+    date: '2026-10-04',
+    notes: [
+      'iPhone: Datumsfelder überlappen keine Nachbarfelder mehr',
+      'iPhone: Inhalte überlappen nicht mehr mit der Statusleiste',
+      'Kürzere Feldbezeichnungen („Fällig am", „Fällig bei (km)")',
+      'Formulare und Buttons passen sich schmalen Bildschirmen an',
+    ],
+  },
+  {
     version: '1.0.0',
     date: '2026-10-02',
     notes: [

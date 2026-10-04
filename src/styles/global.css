@@ -144,6 +144,21 @@ p {
   font-family: inherit;
   width: 100%;
   min-width: 0;
+  max-width: 100%;
+}
+
+/* iOS Safari gives date inputs a fixed intrinsic width that ignores
+   width: 100%; stripping the native appearance makes them obey it. */
+.field input[type='date'] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  min-height: 46px;
+  text-align: left;
+}
+
+.field input[type='date']::-webkit-date-and-time-value {
+  text-align: left;
 }
 
 .field input:focus,

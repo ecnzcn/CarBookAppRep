@@ -4,6 +4,13 @@ All notable changes to CarBook are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] - 2026-10-04
+
+- iPhone: Datumsfelder überlappen keine Nachbarfelder mehr
+- iPhone: Inhalte überlappen nicht mehr mit der Statusleiste
+- Kürzere Feldbezeichnungen („Fällig am", „Fällig bei (km)")
+- Formulare und Buttons passen sich schmalen Bildschirmen an
+
 ## [1.0.0] - 2026-10-02
 
 - Deutsche Benutzeroberfläche (gesamte App auf Deutsch übersetzt)

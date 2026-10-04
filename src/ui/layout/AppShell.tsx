@@ -6,6 +6,7 @@ import { navItems } from './navItems';
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className={styles.shell}>
+      <div className={styles.statusBarBackdrop} aria-hidden="true" />
       <nav className={styles.sidebar} aria-label="Hauptnavigation">
         <div className={styles.sidebarBrand}>CarBook</div>
         {navItems.map((item) => (

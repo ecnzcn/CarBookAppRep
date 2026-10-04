@@ -13,6 +13,16 @@
   width: 100%;
 }
 
+.statusBarBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top);
+  background: var(--color-bg);
+  z-index: 20;
+}
+
 .sidebar {
   display: none;
 }
