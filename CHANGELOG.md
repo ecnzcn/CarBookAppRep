@@ -4,6 +4,11 @@ All notable changes to CarBook are documented here. Format loosely follows
 [Keep a Changelog](https://keepachangelog.com/); versions follow
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-10-04
+
+- iPhone: Seiten lassen sich wieder bis ganz nach unten scrollen
+- Untere Navigation berücksichtigt den Home-Balken des iPhones
+
 ## [1.1.0] - 2026-10-04
 
 - Zahlenfelder lassen sich leeren und öffnen auf dem iPhone den Ziffernblock

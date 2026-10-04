@@ -7,6 +7,14 @@ export interface ChangelogEntry {
 /** Most recent first. Keep in sync with CHANGELOG.md and package.json's version. */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '1.1.1',
+    date: '2026-10-04',
+    notes: [
+      'iPhone: Seiten lassen sich wieder bis ganz nach unten scrollen',
+      'Untere Navigation berücksichtigt den Home-Balken des iPhones',
+    ],
+  },
+  {
     version: '1.1.0',
     date: '2026-10-04',
     notes: [
