@@ -64,9 +64,9 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
 
   return (
     <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
             <Badge tone="accent">{tireSeasonLabel(set.season)}</Badge>
             <strong>
               {set.manufacturer} {set.model}
@@ -78,7 +78,7 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
               .join(' · ') || 'Noch keine Details'}
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <button className="btn btn-secondary" style={{ padding: '4px 10px' }} onClick={() => setEditing(true)}>
             Bearbeiten
           </button>
@@ -103,9 +103,11 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
                 fontSize: 13,
                 borderTop: '1px solid var(--color-border)',
                 paddingTop: 6,
+                flexWrap: 'wrap',
+                gap: 8,
               }}
             >
-              <span>
+              <span style={{ minWidth: 0 }}>
                 {formatDateDe(ev.date)} · {tireActionLabel(ev.action)}
                 {ev.mileage !== undefined ? ` · ${ev.mileage.toLocaleString('de-DE')} km` : ''}
                 {ev.notes ? ` · ${ev.notes}` : ''}
@@ -124,7 +126,7 @@ export function TireSetCard({ set, vehicleId }: { set: TireSet; vehicleId: strin
 
       {addingEvent ? (
         <form onSubmit={handleAddEvent} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr)', gap: 8 }}>
             <div className="field">
               <label>Datum</label>
               <input

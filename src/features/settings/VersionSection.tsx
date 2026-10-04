@@ -8,7 +8,7 @@ export function VersionSection() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div>
           <p style={{ fontSize: 14, fontWeight: 600 }}>CarBook v{__APP_VERSION__}</p>
           <p style={{ fontSize: 12, color: 'var(--color-text-muted)', marginTop: 2 }}>

@@ -79,7 +79,19 @@ export function DocumentAttachments({ vehicleId, maintenanceId, issueId }: Docum
                   padding: '8px 10px',
                 }}
               >
-                <a href={url} download={doc.filename} style={{ fontSize: 14, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <a
+                  href={url}
+                  download={doc.filename}
+                  style={{
+                    fontSize: 14,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    display: 'block',
+                    flex: '1 1 auto',
+                    minWidth: 0,
+                  }}
+                >
                   {doc.filename}
                   <span style={{ color: 'var(--color-text-muted)' }}> · {formatSize(doc.blob.size)}</span>
                 </a>

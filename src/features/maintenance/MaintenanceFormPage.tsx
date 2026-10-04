@@ -104,7 +104,7 @@ export function MaintenanceFormPage() {
           <input id="title" required value={current.title} onChange={(e) => set('title', e.target.value)} />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16 }}>
           <div className="field">
             <label htmlFor="type">Typ</label>
             <select id="type" value={current.type} onChange={(e) => set('type', e.target.value as Maintenance['type'])}>
@@ -157,7 +157,7 @@ export function MaintenanceFormPage() {
           />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16 }}>
           <div className="field">
             <label htmlFor="nextDate">Nächstes Fälligkeitsdatum</label>
             <input
@@ -186,7 +186,7 @@ export function MaintenanceFormPage() {
 
         {error && <p style={{ color: 'var(--color-danger)', fontSize: 14 }}>{error}</p>}
 
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <div>
             {isEditing && (
               <button type="button" className="btn btn-secondary" style={{ color: 'var(--color-danger)' }} onClick={handleDelete}>
@@ -194,7 +194,7 @@ export function MaintenanceFormPage() {
               </button>
             )}
           </div>
-          <div style={{ display: 'flex', gap: 12 }}>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>
               Abbrechen
             </button>

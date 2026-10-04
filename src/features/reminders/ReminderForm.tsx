@@ -51,7 +51,7 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
         <input id="title" required value={input.title} onChange={(e) => set('title', e.target.value)} />
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 12 }}>
         <div className="field">
           <label htmlFor="dueDate">Fälligkeitsdatum</label>
           <input id="dueDate" type="date" value={input.dueDate ?? ''} onChange={(e) => set('dueDate', e.target.value)} />
@@ -100,7 +100,7 @@ export function ReminderForm({ vehicleId, initial, onSubmit, onCancel }: Reminde
 
       {error && <p style={{ color: 'var(--color-danger)', fontSize: 13 }}>{error}</p>}
 
-      <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
         <button type="button" className="btn btn-secondary" onClick={onCancel}>
           Abbrechen
         </button>

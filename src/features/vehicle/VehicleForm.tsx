@@ -53,7 +53,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16 }}>
         <div className="field">
           <label htmlFor="manufacturer">Hersteller</label>
           <input
@@ -209,7 +209,7 @@ export function VehicleForm({ initial, submitLabel, onSubmit, onCancel }: Vehicl
 
       {error && <p style={{ color: 'var(--color-danger)', fontSize: 14 }}>{error}</p>}
 
-      <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
         <button type="button" className="btn btn-secondary" onClick={onCancel}>
           Abbrechen
         </button>

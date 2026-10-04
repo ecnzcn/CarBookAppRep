@@ -60,7 +60,7 @@ export function VehicleDetailPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 700 }}>
             {vehicle.manufacturer} {vehicle.model}
@@ -69,7 +69,7 @@ export function VehicleDetailPage() {
             {vehicle.currentMileage.toLocaleString('de-DE')} km
           </p>
         </div>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <Link to={`/vehicles/${vehicle.id}/tires`} className="btn btn-secondary">
             Reifen
           </Link>
@@ -83,7 +83,7 @@ export function VehicleDetailPage() {
       </div>
 
       <div className="card">
-        <dl style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, margin: 0 }}>
+        <dl style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16, margin: 0 }}>
           {rows.map(([label, value]) => (
             <div key={label}>
               <dt style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>{label}</dt>

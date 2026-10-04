@@ -50,10 +50,10 @@ function ReminderRow({ reminder, currentMileage }: { reminder: Reminder; current
   return (
     <div
       className="card"
-      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}
+      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}
     >
-      <div>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <div style={{ minWidth: 0 }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
           <strong>{reminder.title}</strong>
           {reminder.enabled ? (
             <Badge tone={toneByStatus[status]}>{labelByStatus[status]}</Badge>
@@ -70,7 +70,7 @@ function ReminderRow({ reminder, currentMileage }: { reminder: Reminder; current
             .join(' · ') || 'Kein Fälligkeitsdatum oder Kilometerstand gesetzt'}
         </p>
       </div>
-      <div style={{ display: 'flex', gap: 8 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         <button
           className="btn btn-secondary"
           style={{ padding: '4px 10px' }}
@@ -99,7 +99,7 @@ export function RemindersSection({ vehicleId, currentMileage }: { vehicleId: str
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <h2 style={{ fontSize: 16, fontWeight: 600 }}>Erinnerungen</h2>
         {!adding && (
           <button className="btn btn-secondary" onClick={() => setAdding(true)}>

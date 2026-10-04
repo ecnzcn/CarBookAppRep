@@ -50,7 +50,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 12 }}>
         <div className="field">
           <label htmlFor="season">Saison</label>
           <select id="season" value={input.season} onChange={(e) => set('season', e.target.value as TireSet['season'])}>
@@ -127,7 +127,7 @@ export function TireSetForm({ vehicleId, initial, onSubmit, onCancel }: TireSetF
 
       {error && <p style={{ color: 'var(--color-danger)', fontSize: 13 }}>{error}</p>}
 
-      <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
         <button type="button" className="btn btn-secondary" onClick={onCancel}>
           Abbrechen
         </button>

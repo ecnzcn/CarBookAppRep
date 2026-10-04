@@ -13,7 +13,7 @@ export function SettingsPage() {
       <h1 style={{ fontSize: 22, fontWeight: 700 }}>Einstellungen</h1>
 
       <section className="card" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <h2 style={{ fontSize: 16, fontWeight: 600 }}>Fahrzeuge</h2>
           <Link to="/vehicles/new" className="btn btn-secondary">
             Fahrzeug hinzufügen

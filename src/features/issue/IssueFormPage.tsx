@@ -111,7 +111,7 @@ export function IssueFormPage() {
           />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 16 }}>
           <div className="field">
             <label htmlFor="date">Datum</label>
             <input id="date" type="date" required value={current.date} onChange={(e) => set('date', e.target.value)} />
@@ -159,7 +159,7 @@ export function IssueFormPage() {
 
         {error && <p style={{ color: 'var(--color-danger)', fontSize: 14 }}>{error}</p>}
 
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <div>
             {isEditing && (
               <button type="button" className="btn btn-secondary" style={{ color: 'var(--color-danger)' }} onClick={handleDelete}>
@@ -167,7 +167,7 @@ export function IssueFormPage() {
               </button>
             )}
           </div>
-          <div style={{ display: 'flex', gap: 12 }}>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <button type="button" className="btn btn-secondary" onClick={() => navigate(-1)}>
               Abbrechen
             </button>

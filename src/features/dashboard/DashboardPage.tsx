@@ -87,7 +87,7 @@ export function DashboardPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <h1 style={{ fontSize: 22, fontWeight: 700 }}>Dashboard</h1>
         {vehicles.length > 1 && (
           <select
@@ -209,7 +209,7 @@ export function DashboardPage() {
       </div>
 
       <section className="card">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8, flexWrap: 'wrap', gap: 8 }}>
           <h3 style={{ fontSize: 14, color: 'var(--color-text-muted)' }}>Letzte Aktivität</h3>
           <Link to="/timeline" style={{ fontSize: 13, color: 'var(--color-accent)' }}>
             Timeline ansehen
@@ -220,8 +220,8 @@ export function DashboardPage() {
         ) : (
           <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
             {recentActivity.map((entry) => (
-              <li key={entry.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
-                <span style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}>
+              <li key={entry.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                <span style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14, minWidth: 0 }}>
                   <Badge tone={timelineTypeTone(entry.type)}>{timelineTypeLabel(entry.type)}</Badge>
                   {entry.title}
                 </span>

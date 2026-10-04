@@ -25,7 +25,7 @@ export function TiresPage() {
         <Link to={`/vehicles/${vehicleId}`} style={{ fontSize: 13, color: 'var(--color-text-muted)' }}>
           ← {vehicle?.manufacturer} {vehicle?.model}
         </Link>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6, flexWrap: 'wrap', gap: 12 }}>
           <h1 style={{ fontSize: 22, fontWeight: 700 }}>Reifen</h1>
           {!adding && (
             <button className="btn btn-primary" onClick={() => setAdding(true)}>

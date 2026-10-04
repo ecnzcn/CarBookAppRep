@@ -8,7 +8,7 @@ export function VehicleListPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <h1 style={{ fontSize: 22, fontWeight: 700 }}>Fahrzeuge</h1>
         <Link to="/vehicles/new" className="btn btn-primary">
           Fahrzeug hinzufügen
